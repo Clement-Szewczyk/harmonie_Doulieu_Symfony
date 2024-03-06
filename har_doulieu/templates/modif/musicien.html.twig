@@ -1,45 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IscriptionController!{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('styles/ajout.css') }}">
-{% endblock %}
-
+{% block title %}{{user.nom}} {{user.prenom}}{% endblock %}
 
 {% block body %}
 
 {% include "navbar.html.twig" %}
 
-<h1>Ajout d'un musicien</h1>
+
+    <h1>Modification de {{user.nom}} {{user.prenom}}</h1>
+
+
     <!-- Form pour ajouter un Musicien -->
     <div class="add_musicien">
         <!-- On envoie les données du formulaire à la page /PHP/musicien.php -->
         <form action="" method="POST">
             <div class="info">
                 <label class="label" for="nom">Nom :</label>
-                <input class="text" type="text" placeholder="Nom" name="nom" required  >
+                <input class="text" type="text" placeholder="Nom" name="nom" value="{{user.nom}}" required  >
                 <label class="label" for="prenom">Prénom :</label>
-                <input class="text" type="text" placeholder="Prénom" name="prenom" required>
+                <input class="text" type="text" placeholder="Prénom" name="prenom" value="{{user.prenom}}" required>
                 <label class="label" for="pseudo">Pseudo</label>
-                <input class="text" type="text" placeholder="Pseudo" name="pseudo" required>
+                <input class="text" type="text" placeholder="Pseudo" name="pseudo" value="{{user.pseudo}}" required>
             </div>
             <div class="info">
                 <label class="label" for="email">Email :</label>
-                <input class="text" type="text" placeholder="Email" name="email" required>
+                <input class="text" type="text" placeholder="Email" name="email" value="{{user.email}}" required>
                 <label class="label" for="Tel_Fixe">Téléphone fixe :</label>
-                <input class="text" type="text" placeholder="Tel_Fixe" name="fixe" >
+                <input class="text" type="text" placeholder="Tel_Fixe" name="fixe" value="{{user.TelFixe}}">
                 <label class="label" for="Tel_Port">Téléphone portable :</label>
                 <input class="text" type="text" placeholder="Tel_Port" name="port" required>
             </div>
             <div class="info">
                 <label class="label" for="adresse">Adresse :</label>
-                <input class="text" type="text" placeholder="Adresse" name="adresse" required>
+                <input class="text" type="text" placeholder="Adresse" name="adresse" >
                 <label class="label" for="CP">Code Postale :</label>
-                <input class="text" type="text" placeholder="Code_Postal" name="CP" required>
+                <input class="text" type="text" placeholder="Code_Postal" name="CP" >
                 <label class="label" for="ville">Ville :</label>
-                <input class="text" type="text" placeholder="Ville" name="ville" required>
+                <input class="text" type="text" placeholder="Ville" name="ville" >
             </div>
             <div class="info">
                 <label class="label" for="naissanec">Date de naissance :</label>

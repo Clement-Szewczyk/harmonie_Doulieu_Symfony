@@ -56,7 +56,7 @@
                             {{ musicien.roles[0] }}
                         {% endif %}
                     </td>
-                    <td><a href="#">Modifier</a></td>
+                    <td><a href="{{ path('app_modif_musicien', {'id': musicien.id}) }}">Modifier</a></td>
                 </tr>
             {% endfor %}
         </tbody>
