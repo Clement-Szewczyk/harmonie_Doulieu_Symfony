@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/historique.css') }}">
+{% endblock %}
+
+
+
+{% block body %}
+
+{% include "navbar.html.twig" %}
+
+<h1>Historique de la Société</h1>
+
+
+<div id="contenu">
+
+    <p class="rem">Tiré du livre de Mr Jean-Marie Herman "Un Village de Flandres"</p>
+
+    <h2>La fondation de la société</h2>
+    <p class="redac">La société de musique de <a href="http://fr.wikipedia.org/wiki/Le_Doulieu">Le Doulieu</a> a été fondée en 1869. Elle était à son origine indépendante. Les guerres 14/18 et 39/45 détruisirent toutes les archives, les seuls renseignements prouvant avec exactitude que la société a bien été fondée en 1869 ont été trouvés dans les archives du journal régional "L'Indicateur".</p>
+    <p class="redac">Le principal fondateur fut Mr Charles Béghin qui, avec ses frères et amis organisa des cours de solfège et formèrent des musiciens. Leurs efforts pour former cette musique furent handicapés par la guerre de 1870. Néanmoins L'Indicateur cite encore la présence de la société en juillet 1872 à une fête musicale qui avait lieu à Merville, à l'occasion de la fête communale.</p>
+    <p class="redac">Messieurs Paul et Albéric Béghin succédèrent à leur père Charles, au sein de la société. Aucun renseignement précis sur l'identité du directeur à cette époque. Quelques anciens doulieusiens se souvenaient d'un Mr Dambrine, suivi par Mr Charles Cappelle de Neuf Berquin et de Mr Verhaeghe d'Estaires. Furent Présidents de la Société Messieurs Singer, Thorez, Lesage et Jules Duplouich jusqu'à la guerre de 1914.</p>
+
+    <h2>Les années 20-30, l'entre deux guerres</h2>
+    <p class="redac">Quelques années après la fin de la guerre, en 1922, la société fut reformée avec à sa tête Mr Jules Traisnel comme président ; Paul Salomé, vice président ; Mr Achille Guise, porte drapeau ; Mr Cappelle de Neuf- Berquin, directeur, et Mr Paul Mei sous directeur. La première sortie se fit avec une dizaine de musiciens car plusieurs membres de la société furent tués lors de la grande Guerre. Le nombre de musiciens augmenta bien vite grâce au concours d'un professeur de solfège et grand amateur de musique, Mr Elie Catteau Béghin, chantre à Le Doulieu et tenancier du siège de la musique.</p> 
+    <p class="redac">En 1925, Mr Charles Cappelle, vu son âge démissionne et Mr Désiré Brouck de Bac Saint Maur, le remplace comme chef de la société. En 1928, Mr Paul Salomé décède et Mr Edouard Salomez le remplace au poste de vice président. Mr Léon Dethoor est nommé deuxième vice président. En 1933, décès de Mr Edouard Salomez, remplacé par Mr Léon Dethoor.Mr Marcel François est nommé deuxième vice président. En 1935, démissions de Mr Léon Salomez et de Mr Marcel François qui furent remplacés par Mr André Boulet et Joseph Dupont qui resta jusqu'en 1947. En 1940, c'est la guerre, après la démission de Paul Mei, c'est Mr Edmond Dupont qui le remplace au poste de sous chef, jusqu'à sa mort en 1968.</p>
+
+    <h2>Deuxième moitié du XXème siècle, les chefs se succèdent...</h2>
+
+    <p class="redac">En 1951, MM Jules Traisnel et André Boulet quittent leurs fonctions. Mr Maurice Salomez est nommé président et Léon Duplouich, vice président. En 1952, départ du directeur Mr Désiré Brouck. C'est Mr Albert Paurisse, premier prix au conservatoire de Lille qui le remplace jusqu'en 1968, date à laquelle, Mr Pierre Page, également premier prix au conservatoire de Lille, prend la succession. </p>
+    <p class="redac">En 1982, Mr Raymond Delecroix succède à Mr Maurice Salomez au poste de président. En 1983, Mr Jo Sansen prend la direction de la société et Mr Paul Pecqueur succéde à Mr Michel Petitprez comme sous directeur. En 1990, Mr Francis Guestin, alors vice président accepte d'assurer la présidence ; Mr Raymond Delecroix devient vice président et Mr Guy Deleplace est promu sous directeur.</p>
+    <p class="redac">En 1992, Mr Bernard Bossaert de Méteren prend la direction de la société en remplacement de Mr Jo Sansen.</p>
+
+    <h2>"Les amis réunis"</h2>
+
+    <p class="redac">En 1997, Mr Patrick Vanexem de Laventie succède à Bernard Bossaert. En 1998, Mme Christine Guestin est nommée présidente de l'Harmonie, son père Francis (cité plus haut) devient président d'honneur. L'Harmonie Municipale change d'appellation et devient «  Les Amis Réunis » de Le Doulieu. </p>
+    <p class="redac">En 2007, le présidence est ensuite reprise par Jean-Luc Leroy (président) et Cyrille Olivier (vice-président).</p>
+    <p class="redac">Depuis 2016, l'association est dirigée par Julien Marichez (président) et Pierre Dessart (vice-président).</p>
+    <p class="redac">En 2020, Michael Denez prend la direction de l'orchestre, succédant à Patrick Vanexem après plus de 20 ans à la tête de notre orchestre !</p>
+
+</div>
+{% endblock %}

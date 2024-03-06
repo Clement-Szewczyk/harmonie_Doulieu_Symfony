@@ -1,0 +1,137 @@
+/* ******************** NAVBAR ******************* */
+
+.navbar {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /*position: fixed;*/
+  }
+  
+  .navbar img{
+      width: 10%;
+      cursor: pointer;
+  }
+  
+  .nav-item {
+    padding: 15px;
+    color: black;
+    cursor: pointer;
+    font-family: Tahoma;
+  }
+  
+  .nav-item:hover{
+    color: #900;
+  }
+  
+  .with-dropdown:hover .dropdown {
+    display: block;
+  }
+  
+  .dropdown {
+    display: none;
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: black !important;
+    background-color: white !important;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  
+  .dropdown li {
+    padding: 5px;
+    font-family: Tahoma;
+  }
+  
+  .dropdown li:hover {
+    color: #900;
+  }
+  
+
+.connect{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 10px;
+  }
+
+  .connect input{
+    width: 25%;
+  }
+  
+  
+  .connect a{
+    color: #900;
+    margin-left: 10px;
+  }
+
+
+  /************* Bibliotheque *************/
+
+  h1{
+    text-align: center;
+    font-family: Verdana;
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 20pt;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    color: #900;
+}
+
+/* Input */
+
+.submit{
+    text-align: center;
+    margin: 10px;
+    width: 200px;
+    height: 30px;
+    border: 1px solid #900;
+    border-radius: 20px;
+    padding: 5px;
+    background-color: #900;
+    color: white;
+    font-weight: bold;
+}
+
+.submit:hover{
+    background-color: white;
+    color: #900;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+
+.text{
+    border-color: #900;
+    border-radius: 10px;
+    padding: 10px;
+    color: #900;
+    margin: 5px;
+    text-align: center;
+}
+
+.text:focus{
+    outline: none;
+    border-color: #900;
+    box-shadow: 0 0 10px #900;
+}
+
+.label{
+    font-size: 1em;
+    font-weight: bold;
+    margin-right: 10px;
+    color: #900;
+}
+
+.button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}

@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IscriptionController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/ajout.css') }}">
+{% endblock %}
+
+
+{% block body %}
+
+{% include "navbar.html.twig" %}
+
+<h1>Ajout d'un musicien</h1>
+    <!-- Form pour ajouter un Musicien -->
+    <div class="add_musicien">
+        <!-- On envoie les données du formulaire à la page /PHP/musicien.php -->
+        <form action="" method="POST">
+            <div class="info">
+                <label class="label" for="nom">Nom :</label>
+                <input class="text" type="text" placeholder="Nom" name="nom" required  >
+                <label class="label" for="prenom">Prénom :</label>
+                <input class="text" type="text" placeholder="Prénom" name="prenom" required>
+                <label class="label" for="pseudo">Pseudo</label>
+                <input class="text" type="text" placeholder="Pseudo" name="pseudo" required>
+            </div>
+            <div class="info">
+                <label class="label" for="email">Email :</label>
+                <input class="text" type="text" placeholder="Email" name="email" required>
+                <label class="label" for="Tel_Fixe">Téléphone fixe :</label>
+                <input class="text" type="text" placeholder="Tel_Fixe" name="fixe" >
+                <label class="label" for="Tel_Port">Téléphone portable :</label>
+                <input class="text" type="text" placeholder="Tel_Port" name="port" required>
+            </div>
+            <div class="info">
+                <label class="label" for="adresse">Adresse :</label>
+                <input class="text" type="text" placeholder="Adresse" name="adresse" >
+                <label class="label" for="CP">Code Postale :</label>
+                <input class="text" type="text" placeholder="Code_Postal" name="CP" >
+                <label class="label" for="ville">Ville :</label>
+                <input class="text" type="text" placeholder="Ville" name="ville" >
+            </div>
+            <div class="info">
+                <label class="label" for="naissanec">Date de naissance :</label>
+                <input class="text" type="date" placeholder="Date de naissance" name="naissance" required >
+                <label class="label" for="doulieu">Date d'entrée à Le Doulieu :</label>
+                <input class="text" type="date" placeholder="Date Entrée Doulieu" name="doulieu" required>
+                <label class="label" for="fede">Date entrée Fédération :</label>
+                <input class="text" type="date" placeholder="Date entrée Fédé" name="fede" required>
+            </div>
+            <div class="info">
+                <label class="label" for="mdp">Mot de Passe</label>
+                <input class="text" type="password" placeholder="Mot de Passe" name="mdp" required>
+                <label class="label" for="pupitre">Pupitre :</label>
+                <!-- On réalise un select pour sélectionner le pupitre en fonction de ce qui est créer -->
+                <Select name="pupitre" required>
+                    <option value="0" selected>Choisir un Pupitre</option>
+                    {% for pupitre in pupitres %}
+                        <option value="{{ pupitre.id }}">{{ pupitre.nom }}</option>
+                    {% endfor %}
+                </Select>
+                <label class="label" for="role">Rôle :</label>
+                <!-- Pareil que le pupitre mais pour les rôles -->
+                <Select name="role" required >
+                    <option value="" selected>Choisir un rôle</option>
+                    <option value="1">Musicien</option>
+                    <option value="2">Admin</option>
+                </Select>
+            </div>
+            <div class="button">            
+                <input type="submit" value="Ajouter" name="musicien" class="submit">
+            </div>
+        </form>
+    </div>
+
+        {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+{% endblock %}

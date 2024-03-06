@@ -1,0 +1,99 @@
+
+
+<!-- lier JS  -->
+
+{% block javascripts %}
+    <script src="{{ asset('navbar.js') }}"></script>
+{% endblock %}
+
+
+
+
+
+{% block body %}
+<nav>
+        
+    <ul class="navbar">
+        <img src="{{ asset('img/logo_harmonie.svg') }}" alt="Logo" onclick="Accueil()">
+        <li class="nav-item with-dropdown">
+            Harmonie
+            <ul class="dropdown">
+                <li onclick="Historique()">Historique</li>
+                <li onclick="Direction()">La Direction Musicale</li>
+                <li onclick="Commission()">La Commission Administrative</li>
+                <li onclick="Repetition()">Les Répétitions</li>
+                <li onclick="Calendrier()">Le Calendrier des sorties</li>
+            </ul>
+        </li>
+        <li class="nav-item" onclick="Ecole()">Ecole de musique</li>
+
+        {% if app.user %}
+            <li class="nav-item with-dropdown">
+                Espace Membre
+                <ul class="dropdown">
+                    <li onclick="Espace()">Vos informations</li>
+                    <li onclick="sortieuser()">Présence sortie</li>
+                </ul>
+            </li>
+        {% else %}
+            <li class="nav-item" onclick="connexion()">Espace Membre</li>
+        {% endif %}
+        
+
+        <!--
+             <?php
+                if(isset($_SESSION['role']) && $_SESSION['role'] == 2 || isset($_SESSION['role']) && $_SESSION['role'] == 1){
+                    echo'
+                    
+                    ';
+                }else{
+                    echo '<li class="nav-item" onclick="Espace()">Espace Membre</li>';
+                }
+            ?>
+        -->
+        <li class="nav-item" onclick="Contact()">Contact</li>
+        <!--Changer en admin-->
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item with-dropdown">
+                Administration
+                <ul class="dropdown">
+                    <li onclick="Musicien()">Musicien</li>
+                    <li onclick="Eleves()">Eleves</li>
+                    <li onclick="Instrument()">Instrument</li>
+                    <li onclick="Ajout()">Ajout personne</li>
+                    <li onclick="Sortie()">Sortie</li>
+                    
+                </ul>
+            </li> 
+        {% endif %}
+
+
+        <div class="connect">
+
+            {% if app.user %}
+                <p>{{ app.user.userIdentifier }}</p>
+                <a href="{{ path('app_logout') }}">Déconnexion</a>
+            
+                <!-- Action vers le controller de connexion
+                <form method="post">
+            
+                    <input class="text" type="text" name="_username" id="username" class="form-control" autocomplete="username" required autofocus>
+                    <input class="text" type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+            
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+            
+                    <div class="button">
+                        <input type="submit" value="Se Connecter" class="submit">
+                    </div>
+                    
+                </form>-->
+            {% endif %}
+
+        </div>
+    </ul>
+</nav>
+
+{% endblock body %}
+

@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MusicienController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/musicien.css') }}">
+{% endblock %}
+
+{% block body %}
+{% include "navbar.html.twig" %}
+
+<!-- Affiche les infos des users -->
+
+<h1>Les Musiciens </h1>
+    <!-- Création du tableau permettant de visualiser l'ensemble des musiciens -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Pseudo</th>
+                <th>Email</th>
+                <th>Tel_Fixe</th>
+                <th>Tel_Portable</th>
+                <th>Adresse</th>
+                <th>Code_Postal</th>
+                <th>Ville</th>
+                <th>Date de naissance</th>
+                <th>Date Entrée Doulieu</th>
+                <th>Date entrée Fédé</th>
+                <th>Pupitre</th>
+                <th>Rôle</th>
+                <th>Modifier</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for musicien in users %}
+                <tr>
+                    <td>{{ musicien.nom }}</td>
+                    <td>{{ musicien.prenom }}</td>
+                    <td>{{ musicien.pseudo }}</td>
+                    <td>{{ musicien.email }}</td>
+                    <td>{{ musicien.telFixe }}</td>
+                    <td>{{musicien.TelPort}}</td>
+                    <td>{{ musicien.adresse }}</td>
+                    <td>{{ musicien.CP }}</td>
+                    <td>{{ musicien.ville }}</td>
+                    <td>{{ musicien.dateNaissance|date('d/m/Y') }}</td>
+                    <td>{{ musicien.Datehar|date('d/m/Y') }}</td>
+                    <td>{{ musicien.DateFede|date('d/m/Y') }}</td>
+                    
+                    <td>{{musicien.pupitre.nom}}</td>
+                    <td>
+                        {% if musicien.roles|length > 0 %}
+                            {{ musicien.roles[0] }}
+                        {% endif %}
+                    </td>
+                    <td><a href="#">Modifier</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}
