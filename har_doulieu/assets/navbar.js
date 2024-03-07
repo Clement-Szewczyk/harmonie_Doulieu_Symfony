@@ -57,7 +57,7 @@ function Musicien(){
   window.location.href = "/musicien"
 }
 function Ajout(){
-  window.location.href = "ajout"
+  window.location.href = "/ajout"
 }
 function Eleves(){
   window.location.href = "/page/administration/eleves.php"

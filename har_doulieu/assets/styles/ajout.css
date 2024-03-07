@@ -59,7 +59,7 @@
     background-color: #900;
 }
 
-.error_message p{
+.error_message{
     color: red;
     font-size: 0.8em;
     font-weight: bold;

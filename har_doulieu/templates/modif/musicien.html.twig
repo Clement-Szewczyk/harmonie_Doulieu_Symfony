@@ -26,40 +26,44 @@
                 <label class="label" for="email">Email :</label>
                 <input class="text" type="text" placeholder="Email" name="email" value="{{user.email}}" required>
                 <label class="label" for="Tel_Fixe">Téléphone fixe :</label>
-                <input class="text" type="text" placeholder="Tel_Fixe" name="fixe" value="{{user.TelFixe}}">
+                <input class="text" type="text" placeholder="Tel_Fixe" name="fixe" value="{{user.TelFixe}}" required>
                 <label class="label" for="Tel_Port">Téléphone portable :</label>
-                <input class="text" type="text" placeholder="Tel_Port" name="port" required>
+                <input class="text" type="text" placeholder="Tel_Port" name="port" value="{{user.TelPort}}" required>
             </div>
             <div class="info">
                 <label class="label" for="adresse">Adresse :</label>
-                <input class="text" type="text" placeholder="Adresse" name="adresse" >
+                <input class="text" type="text" placeholder="Adresse" name="adresse" value="{{user.adresse}}" required >
                 <label class="label" for="CP">Code Postale :</label>
-                <input class="text" type="text" placeholder="Code_Postal" name="CP" >
+                <input class="text" type="text" placeholder="Code_Postal" name="CP" value="{{user.CP}}" required >
                 <label class="label" for="ville">Ville :</label>
-                <input class="text" type="text" placeholder="Ville" name="ville" >
+                <input class="text" type="text" placeholder="Ville" name="ville" value="{{user.ville}}" required >
             </div>
             <div class="info">
                 <label class="label" for="naissanec">Date de naissance :</label>
-                <input class="text" type="date" placeholder="Date de naissance" name="naissance" required >
+                <!--Input date pour la date de naissance -->
+
+                <input class="text" type="date" placeholder="Date de naissance" name="naissance" value="{{user.dateNaissance|date('Y-m-d')}}" required>                
                 <label class="label" for="doulieu">Date d'entrée à Le Doulieu :</label>
-                <input class="text" type="date" placeholder="Date Entrée Doulieu" name="doulieu" required>
+                <input class="text" type="date" placeholder="Date Entrée Doulieu" name="doulieu" value="{{user.datehar|date('Y-m-d')}}" required>
                 <label class="label" for="fede">Date entrée Fédération :</label>
-                <input class="text" type="date" placeholder="Date entrée Fédé" name="fede" required>
+                <input class="text" type="date" placeholder="Date entrée Fédé" name="fede" value="{{user.datefede|date('Y-m-d')}}" required>
             </div>
             <div class="info">
-                <label class="label" for="mdp">Mot de Passe</label>
-                <input class="text" type="password" placeholder="Mot de Passe" name="mdp" required>
                 <label class="label" for="pupitre">Pupitre :</label>
                 <!-- On réalise un select pour sélectionner le pupitre en fonction de ce qui est créer -->
                 <Select name="pupitre" required>
-                    <option value="0" selected>Choisir un Pupitre</option>
+                    <option value="{{user.pupitre.id}}" selected>{{user.pupitre.nom}}</option>
+                    <option value="0">Choisir un Pupitre</option>
                     {% for pupitre in pupitres %}
-                        <option value="{{ pupitre.id }}">{{ pupitre.nom }}</option>
+                        {% if user.pupitre.id != pupitre.id %}
+                            <option value="{{ pupitre.id }}">{{ pupitre.nom }}</option>
+                        {% endif %}
                     {% endfor %}
                 </Select>
                 <label class="label" for="role">Rôle :</label>
                 <!-- Pareil que le pupitre mais pour les rôles -->
                 <Select name="role" required >
+                    
                     <option value="" selected>Choisir un rôle</option>
                     <option value="1">Musicien</option>
                     <option value="2">Admin</option>
