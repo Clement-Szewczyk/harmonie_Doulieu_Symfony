@@ -50,7 +50,7 @@ function Contact(){
 }
 
 function Instrument(){
-  window.location.href = "/page/administration/instrument.php"
+  window.location.href = "/instrument"
 }
 
 function Musicien(){

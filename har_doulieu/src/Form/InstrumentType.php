@@ -16,19 +16,68 @@ class InstrumentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('numero_serie')
-            ->add('marque')
+
+
+
+            ->add('numero_serie', null, [
+                
+                'label' => 'Numéro de série',
+                'label_attr' => [
+                    'class' => 'label'
+                ],
+                'attr' => [
+                    'placeholder' => 'Numéro de série',
+                    'class' => 'text'
+                    
+                ]
+                
+            ])
+
+            
+            
+
+            ->add('marque', null, [
+                'label' => 'Marque',
+                'label_attr' => [
+                    'class' => 'label'
+                ],
+                'attr' => [
+                    'placeholder' => 'Marque',
+                    'class' => 'text'
+                ]
+            ])
             ->add('pupitre', EntityType::class, [
+                'label' => 'Pupitre',
+                'label_attr' => [
+                    'class' => 'label'
+                ],
                 'class' => Pupitres::class,
-'choice_label' => 'id',
+                'choice_label' => 'nom',
+                'attr' => [
+                    'class' => 'select'
+                ]
             ])
             ->add('locataire_musicien', EntityType::class, [
+                'label' => 'Locataire',
+                'label_attr' => [
+                    'class' => 'label'
+                ],
                 'class' => User::class,
-'choice_label' => 'id',
+                'choice_label' => 'pseudo',
+                'attr' => [
+                    'class' => 'select'
+                ]
             ])
             ->add('locataire_eleves', EntityType::class, [
+                'label' => 'Locataire',
+                'label_attr' => [
+                    'class' => 'label'
+                ],
                 'class' => Eleves::class,
-'choice_label' => 'id',
+                'choice_label' => 'pseudo',
+                'attr' => [
+                    'class' => 'select'
+                ]
             ])
         ;
     }

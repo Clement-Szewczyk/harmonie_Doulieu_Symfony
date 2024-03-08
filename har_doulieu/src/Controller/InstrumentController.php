@@ -71,11 +71,10 @@ class InstrumentController extends AbstractController
     #[Route('/{id}', name: 'app_instrument_delete', methods: ['POST'])]
     public function delete(Request $request, Instrument $instrument, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$instrument->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('Suppr'.$instrument->getId(), $request->request->get('_token'))) {
             $entityManager->remove($instrument);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_instrument_index', [], Response::HTTP_SEE_OTHER);
     }
 }

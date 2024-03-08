@@ -43,22 +43,6 @@
 }
 
 
-.add_musicien form select{
-    margin: 10px;
-    width: 200px;
-    height: 30px;
-    border: 1px solid #900;
-    background-color: white;
-    color: #900;
-    border-radius: 20px;
-    padding: 5px;
-}
-
-.add_musicien form select::selection :hover{
-    color: white;
-    background-color: #900;
-}
-
 .error_message{
     color: red;
     font-size: 0.8em;
