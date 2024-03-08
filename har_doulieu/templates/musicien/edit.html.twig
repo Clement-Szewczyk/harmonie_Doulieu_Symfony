@@ -2,6 +2,12 @@
 
 {% block title %}{{user.nom}} {{user.prenom}}{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/ajout.css') }}">
+{% endblock %}
+
+
 {% block body %}
 
 {% include "navbar.html.twig" %}
@@ -12,7 +18,6 @@
 
     <!-- Form pour ajouter un Musicien -->
     <div class="add_musicien">
-        <!-- On envoie les données du formulaire à la page /PHP/musicien.php -->
         <form action="" method="POST">
             <div class="info">
                 <label class="label" for="nom">Nom :</label>
@@ -39,9 +44,7 @@
                 <input class="text" type="text" placeholder="Ville" name="ville" value="{{user.ville}}" required >
             </div>
             <div class="info">
-                <label class="label" for="naissanec">Date de naissance :</label>
-                <!--Input date pour la date de naissance -->
-
+                <label class="label" for="naissance">Date de naissance :</label>
                 <input class="text" type="date" placeholder="Date de naissance" name="naissance" value="{{user.dateNaissance|date('Y-m-d')}}" required>                
                 <label class="label" for="doulieu">Date d'entrée à Le Doulieu :</label>
                 <input class="text" type="date" placeholder="Date Entrée Doulieu" name="doulieu" value="{{user.datehar|date('Y-m-d')}}" required>
@@ -50,10 +53,9 @@
             </div>
             <div class="info">
                 <label class="label" for="pupitre">Pupitre :</label>
-                <!-- On réalise un select pour sélectionner le pupitre en fonction de ce qui est créer -->
                 <Select name="pupitre" required>
                     <option value="{{user.pupitre.id}}" selected>{{user.pupitre.nom}}</option>
-                    <option value="0">Choisir un Pupitre</option>
+                    <option value="">Choisir un Pupitre</option>
                     {% for pupitre in pupitres %}
                         {% if user.pupitre.id != pupitre.id %}
                             <option value="{{ pupitre.id }}">{{ pupitre.nom }}</option>
@@ -61,16 +63,29 @@
                     {% endfor %}
                 </Select>
                 <label class="label" for="role">Rôle :</label>
-                <!-- Pareil que le pupitre mais pour les rôles -->
-                <Select name="role" required >
-                    
-                    <option value="" selected>Choisir un rôle</option>
-                    <option value="1">Musicien</option>
-                    <option value="2">Admin</option>
+                <Select name="role" required > 
+                    {% if user.roles[0] is defined %}
+                        <option value="{{user.roles[0]}}" selected>{{user.roles[0]}}</option>
+                    {% endif %}
+    
+                    {% if user.roles[0] == "ROLE_ADMIN" %}
+                        <option value="">Choisir un rôle</option>
+                        <option value="ROLE_USER">ROLE_USER</option>
+
+                    {% elseif user.roles[0] == "ROLE_USER" %}
+                        <option value="">Choisir un rôle</option>
+                        <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+
+                    {% else %}
+                        <option value="">Choisir un rôle</option>
+                        <option value="ROLE_USER">ROLE_USER</option>
+                        <option value="ROLE_ADMIN">ROLE_USER</option>
+                    {% endif %}
+  
                 </Select>
             </div>
             <div class="button">            
-                <input type="submit" value="Ajouter" name="musicien" class="submit">
+                <input type="submit" value="Modifier" name="musicien" class="submit">
             </div>
         </form>
     </div>

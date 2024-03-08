@@ -18,6 +18,7 @@ class InscriptionController extends AbstractController
     public function index(Request $request, EntityManagerInterface $manager,UserPasswordHasherInterface $passwordHasher ): Response
     {
         $pupitres = $manager->getRepository(Pupitres::class)->findAll();
+        
         if($request->isMethod('POST')){
             # Vérification remplissage des champs
             if(empty($request->request->get('nom')) || empty($request->request->get('prenom')) || empty($request->request->get('pseudo')) || empty($request->request->get('email')) || empty($request->request->get('port')) || empty($request->request->get('fixe')) || empty($request->request->get('adresse')) || empty($request->request->get('CP')) || empty($request->request->get('ville')) || empty($request->request->get('naissance')) || empty($request->request->get('doulieu')) || empty($request->request->get('fede')) || empty($request->request->get('mdp')) || empty($request->request->get('pupitre')) || empty($request->request->get('role'))){
@@ -44,26 +45,15 @@ class InscriptionController extends AbstractController
             $user->setDateHar(new \DateTime($request->request->get('doulieu')));
             $user->setDateFede(new \DateTime($request->request->get('fede')));
             $user->setPassword($passwordHasher->hashPassword($user,$request->request->get('mdp')));
-            $user->setPupitre($manager->getRepository(Pupitres::class)->find($request->request->get('pupitre')));
+            $user->setPupitre($manager->getRepository(Pupitres::class)->find($request->request->get('pupitre')));     
 
-            $role= $request->request->get('role');
-            if($role == 0){
-                exit();
-            }
-            elseif($role == 1){
-                $user->setRoles(['ROLE_USER']);
-            }
-            elseif($role == 2){
-                $user->setRoles(['ROLE_ADMIN']);
-            }
-
+            $user->setRoles([$request->request->get('role')]);
             $manager->persist($user);
             $manager->flush();
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_musicien');
         }
         return $this->render('inscription/index.html.twig', [
-            'pupitres' => $pupitres,
-            
+            'pupitres' => $pupitres, 
         ]);
     }
 }

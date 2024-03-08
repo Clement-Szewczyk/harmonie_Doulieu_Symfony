@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Instrument{% endblock %}
+
+{% block body %}
+    <h1>Instrument</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ instrument.id }}</td>
+            </tr>
+            <tr>
+                <th>Numero_serie</th>
+                <td>{{ instrument.numeroSerie }}</td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ instrument.marque }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_instrument_index') }}">back to list</a>
+
+    <a href="{{ path('app_instrument_edit', {'id': instrument.id}) }}">edit</a>
+
+    {{ include('instrument/_delete_form.html.twig') }}
+{% endblock %}
