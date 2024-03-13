@@ -14,4 +14,12 @@
     {{ include('instrument/_form.html.twig') }}
 
     <a href="{{ path('app_instrument_index') }}">back to list</a>
+
+    <!-- Affiche résultat addflash error-->
+
+    {% for message in app.flashes('error') %}
+        <div class="flash-error">
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endblock %}

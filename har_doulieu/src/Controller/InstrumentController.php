@@ -17,7 +17,6 @@ class InstrumentController extends AbstractController
     #[Route('/', name: 'app_instrument_index', methods: ['GET'])]
     public function index(InstrumentRepository $instrumentRepository): Response
     {   
-        dump($instrumentRepository->findAll());
         return $this->render('instrument/index.html.twig', [
             'instruments' => $instrumentRepository->findAll(),
         ]);
@@ -31,6 +30,17 @@ class InstrumentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('locataire_musicien')->getData() != null && $form->get('locataire_eleves')->getData() != null){
+                
+                $this->addFlash('error', 'Vous ne pouvez pas attribuer un instrument à un musicien et à un élève en même temps');
+                return $this->redirectToRoute('app_instrument_new', [], Response::HTTP_SEE_OTHER);
+            }
+            if($form->get('locataire_musicien')->getData() == null && $form->get('locataire_eleves')->getData() != null){
+                $instrument->setLocataireMusicien(null);
+            }
+            if($form->get('locataire_eleves')->getData() == null && $form->get('locataire_musicien')->getData() != null){
+                $instrument->setLocataireEleves(null);
+            }
             $entityManager->persist($instrument);
             $entityManager->flush();
 
@@ -58,6 +68,18 @@ class InstrumentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('locataire_musicien')->getData() != null && $form->get('locataire_eleves')->getData() != null){
+                
+                $this->addFlash('error', 'Vous ne pouvez pas attribuer un instrument à un musicien et à un élève en même temps');
+                return $this->redirectToRoute('app_instrument_new', [], Response::HTTP_SEE_OTHER);
+            }
+            if($form->get('locataire_musicien')->getData() == null && $form->get('locataire_eleves')->getData() != null){
+                $instrument->setLocataireMusicien(null);
+            }
+            if($form->get('locataire_eleves')->getData() == null && $form->get('locataire_musicien')->getData() != null){
+                $instrument->setLocataireEleves(null);
+            }
+            $entityManager->persist($instrument);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_instrument_index', [], Response::HTTP_SEE_OTHER);

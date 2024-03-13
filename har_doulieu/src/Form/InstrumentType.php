@@ -33,8 +33,6 @@ class InstrumentType extends AbstractType
                 
             ])
 
-            
-            
 
             ->add('marque', null, [
                 'label' => 'Marque',
@@ -58,23 +56,37 @@ class InstrumentType extends AbstractType
                 ]
             ])
             ->add('locataire_musicien', EntityType::class, [
+                'placeholder' => 'Choisir un musicien',
+                'required' => false,
                 'label' => 'Locataire',
                 'label_attr' => [
                     'class' => 'label'
                 ],
+                
                 'class' => User::class,
-                'choice_label' => 'pseudo',
+                'choice_label' => function ($user) {
+                    return $user->getNom() . ' ' . $user->getPrenom();
+                },
                 'attr' => [
                     'class' => 'select'
                 ]
-            ])
+                
+            ])    
+        
+
+
+
             ->add('locataire_eleves', EntityType::class, [
                 'label' => 'Locataire',
+                'required' => false,
+                'placeholder' => 'Choisir un élève',
                 'label_attr' => [
                     'class' => 'label'
                 ],
                 'class' => Eleves::class,
-                'choice_label' => 'nom',
+                'choice_label' => function ($eleves) {
+                    return $eleves->getNom() . ' ' . $eleves->getPrenom();
+                },
                 'attr' => [
                     'class' => 'select'
                 ]
