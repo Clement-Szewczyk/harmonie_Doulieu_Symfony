@@ -21,15 +21,27 @@
                 <th>Id</th>
                 <th>Numero_serie</th>
                 <th>Marque</th>
+                <th>Locataire</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for instrument in instruments %}
+            {% set Locataire = null %}
+            {% if instrument.locataireMusicien != null %}
+                {% set Locataire = instrument.locataireMusicien.nom ~ " " ~ instrument.locataireMusicien.prenom %}
+            {% elseif instrument.locataireEleves != null %}
+                {% set Locataire = instrument.locataireEleves.nom ~ " " ~ instrument.locataireEleves.prenom %}
+            {% else %}
+                {% set Locataire = "Aucun" %}
+            {% endif %}
+
+
             <tr>
                 <td>{{ instrument.id }}</td>
                 <td>{{ instrument.numeroSerie }}</td>
                 <td>{{ instrument.marque }}</td>
+                <td>{{Locataire}}</td>
                 <td>
                     <a href="{{ path('app_instrument_edit', {'id': instrument.id}) }}">edit</a>
                 </td>

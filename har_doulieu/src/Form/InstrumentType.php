@@ -74,7 +74,7 @@ class InstrumentType extends AbstractType
                     'class' => 'label'
                 ],
                 'class' => Eleves::class,
-                'choice_label' => 'pseudo',
+                'choice_label' => 'nom',
                 'attr' => [
                     'class' => 'select'
                 ]

@@ -16,7 +16,8 @@ class InstrumentController extends AbstractController
 {
     #[Route('/', name: 'app_instrument_index', methods: ['GET'])]
     public function index(InstrumentRepository $instrumentRepository): Response
-    {
+    {   
+        dump($instrumentRepository->findAll());
         return $this->render('instrument/index.html.twig', [
             'instruments' => $instrumentRepository->findAll(),
         ]);
@@ -69,9 +70,9 @@ class InstrumentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_instrument_delete', methods: ['POST'])]
-    public function delete(Request $request, Instrument $instrument, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Instrument $instrument, EntityManagerInterface $entityManager):Response
     {
-        if ($this->isCsrfTokenValid('Suppr'.$instrument->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$instrument->getId(), $request->request->get('_token'))) {
             $entityManager->remove($instrument);
             $entityManager->flush();
         }

@@ -60,7 +60,7 @@ function Ajout(){
   window.location.href = "/ajout"
 }
 function Eleves(){
-  window.location.href = "/page/administration/eleves.php"
+  window.location.href = "/eleves"
 }
 
 function Sortie(){
