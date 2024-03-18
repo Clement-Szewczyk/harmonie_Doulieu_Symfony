@@ -37,7 +37,7 @@ class Eleves
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 10, nullable: true)]
     private ?string $tel_fix = null;
 
     #[ORM\Column(length: 10)]

@@ -2,7 +2,15 @@
 
 {% block title %}Eleves index{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/tableau.css') }}">
+{% endblock %}
+
 {% block body %}
+
+    {% include "navbar.html.twig" %}
+
     <h1>Eleves index</h1>
 
     <table class="table">
@@ -37,7 +45,6 @@
                 <td>{{ elefe.telPort }}</td>
                 <td>{{ elefe.avancement }}</td>
                 <td>
-                    <a href="{{ path('app_eleves_show', {'id': elefe.id}) }}">show</a>
                     <a href="{{ path('app_eleves_edit', {'id': elefe.id}) }}">edit</a>
                 </td>
             </tr>
@@ -49,5 +56,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_eleves_new') }}">Create new</a>
+    <div class="button_add">
+        <a href="{{ path('app_eleves_new') }}">Ajout</a>
+    </div>
+    
 {% endblock %}

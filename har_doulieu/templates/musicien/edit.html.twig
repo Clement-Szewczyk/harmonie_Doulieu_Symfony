@@ -31,7 +31,7 @@
                 <label class="label" for="email">Email :</label>
                 <input class="text" type="text" placeholder="Email" name="email" value="{{user.email}}" required>
                 <label class="label" for="Tel_Fixe">Téléphone fixe :</label>
-                <input class="text" type="text" placeholder="Tel_Fixe" name="fixe" value="{{user.TelFixe}}" required>
+                <input class="text" type="text" placeholder="Tel_Fixe" name="fixe" value="{{user.TelFixe}}">
                 <label class="label" for="Tel_Port">Téléphone portable :</label>
                 <input class="text" type="text" placeholder="Tel_Port" name="port" value="{{user.TelPort}}" required>
             </div>
@@ -53,7 +53,7 @@
             </div>
             <div class="info">
                 <label class="label" for="pupitre">Pupitre :</label>
-                <Select name="pupitre" required>
+                <Select name="pupitre" required class="select">
                     <option value="{{user.pupitre.id}}" selected>{{user.pupitre.nom}}</option>
                     <option value="">Choisir un Pupitre</option>
                     {% for pupitre in pupitres %}
@@ -63,7 +63,7 @@
                     {% endfor %}
                 </Select>
                 <label class="label" for="role">Rôle :</label>
-                <Select name="role" required > 
+                <Select name="role" required class="select"> 
                     {% if user.roles[0] is defined %}
                         <option value="{{user.roles[0]}}" selected>{{user.roles[0]}}</option>
                     {% endif %}
@@ -97,5 +97,7 @@
             </div>
         {% endfor %}
     {% endfor %}
+
+    {% include "/musicien/_delete_form.html.twig" %}
 
 {% endblock %}

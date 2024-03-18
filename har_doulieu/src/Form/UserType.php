@@ -2,18 +2,52 @@
 
 namespace App\Form;
 
-use App\Entity\Eleves;
 use App\Entity\Pupitres;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ElevesType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('pseudo', null, [
+                'label' => 'Pseudo',
+                'label_attr' => [
+                    'class' => 'label'
+                ],
+                'attr' => [
+                    'placeholder' => 'Pseudo',
+                    'class' => 'text'
+                ]
+            ])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Musicien' => 'ROLE_USER',
+                    'Administrateur' => 'ROLE_ADMIN',
+                ],
+                'multiple' => true,
+                'expanded' => true,
+            ], [
+                'label' => 'Rôle',
+                'label_attr' => [
+                    'class' => 'label'
+                ],
+            ])
+            ->add('password', null, [
+                'label' => 'Mot de passe',
+                'label_attr' => [
+                    'class' => 'label'
+                ],
+                'attr' => [
+                    'placeholder' => 'Mot de passe',
+                    'class' => 'text'
+                ]
+            ])
             ->add('nom', null, [
                 'label' => 'Nom',
                 'label_attr' => [
@@ -44,17 +78,6 @@ class ElevesType extends AbstractType
                     'class' => 'text'
                 ]
             ])
-            ->add('date_naissance', null, [
-                'widget' => 'single_text',
-                'label' => 'Date de naissance',
-                'label_attr' => [
-                    'class' => 'label'
-                ],
-                'attr' => [
-                    'placeholder' => 'Date de naissance',
-                    'class' => 'text'
-                ]
-            ])
             ->add('adresse', null, [
                 'label' => 'Adresse',
                 'label_attr' => [
@@ -75,18 +98,7 @@ class ElevesType extends AbstractType
                     'class' => 'text'
                 ]
             ])
-            ->add('ville', null, [
-                'label' => 'Ville',
-                'label_attr' => [
-                    'class' => 'label'
-                ],
-                'attr' => [
-                    'placeholder' => 'Ville',
-                    'class' => 'text'
-                ]
-            ])
-            ->add('tel_fix', null, [
-                'required' => false, // Ajouté pour éviter l'erreur 'This value should not be blank.
+            ->add('tel_fixe', null, [
                 'label' => 'Téléphone fixe',
                 'label_attr' => [
                     'class' => 'label'
@@ -106,28 +118,41 @@ class ElevesType extends AbstractType
                     'class' => 'text'
                 ]
             ])
-            ->add('avancement', null, [
-                'label' => 'Avancement',
+            ->add('date_naissance', null, [
+                'label' => 'Date de naissance',
                 'label_attr' => [
                     'class' => 'label'
                 ],
                 'attr' => [
-                    'placeholder' => 'Avancement',
+                    'placeholder' => 'Date de naissance',
                     'class' => 'text'
                 ]
             ])
-            ->add('pupitre', EntityType::class, [
-                'label' => 'Pupitre',
+            ->add('date_har' , null, [
+                'label' => 'Date d\'adhésion',
                 'label_attr' => [
                     'class' => 'label'
                 ],
                 'attr' => [
-                    'class' => 'select'
+                    'placeholder' => 'Date d\'adhésion',
+                    'class' => 'text'
+                ]
+            ])
+            ->add('date_fede' , null, [
+                'label' => 'Date de fédération',
+                'label_attr' => [
+                    'class' => 'label'
                 ],
-                'required' => false,
-                'placeholder' => 'Choisir un pupitre',
+                'attr' => [
+                    'placeholder' => 'Date de fédération',
+                    'class' => 'text'
+                ]
+            ])
+            ->add('role')
+            ->add('ville')
+            ->add('pupitre', EntityType::class, [
                 'class' => Pupitres::class,
-'choice_label' => 'nom',
+'choice_label' => 'id',
             ])
         ;
     }
@@ -135,7 +160,7 @@ class ElevesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Eleves::class,
+            'data_class' => User::class,
         ]);
     }
 }

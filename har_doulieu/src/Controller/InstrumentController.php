@@ -33,7 +33,7 @@ class InstrumentController extends AbstractController
             if($form->get('locataire_musicien')->getData() != null && $form->get('locataire_eleves')->getData() != null){
                 
                 $this->addFlash('error', 'Vous ne pouvez pas attribuer un instrument à un musicien et à un élève en même temps');
-                return $this->redirectToRoute('app_instrument_new', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_instrument_new', ['form' => $form,'instrument' => $instrument], Response::HTTP_SEE_OTHER);
             }
             if($form->get('locataire_musicien')->getData() == null && $form->get('locataire_eleves')->getData() != null){
                 $instrument->setLocataireMusicien(null);
@@ -53,13 +53,6 @@ class InstrumentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_instrument_show', methods: ['GET'])]
-    public function show(Instrument $instrument): Response
-    {
-        return $this->render('instrument/show.html.twig', [
-            'instrument' => $instrument,
-        ]);
-    }
 
     #[Route('/{id}/edit', name: 'app_instrument_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Instrument $instrument, EntityManagerInterface $entityManager): Response
@@ -71,7 +64,8 @@ class InstrumentController extends AbstractController
             if($form->get('locataire_musicien')->getData() != null && $form->get('locataire_eleves')->getData() != null){
                 
                 $this->addFlash('error', 'Vous ne pouvez pas attribuer un instrument à un musicien et à un élève en même temps');
-                return $this->redirectToRoute('app_instrument_new', [], Response::HTTP_SEE_OTHER);
+                ## Redirection vers la page d'édition de l'instrument en cours avec l'id de l'instrument
+                return $this->redirectToRoute('app_instrument_edit', ['id' => $instrument->getId()], Response::HTTP_SEE_OTHER);
             }
             if($form->get('locataire_musicien')->getData() == null && $form->get('locataire_eleves')->getData() != null){
                 $instrument->setLocataireMusicien(null);

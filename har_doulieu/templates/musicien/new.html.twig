@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IscriptionController!{% endblock %}
+{% block title %}Ajout Musicien{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -54,7 +54,7 @@
                 <input class="text" type="password" placeholder="Mot de Passe" name="mdp" required>
                 <label class="label" for="pupitre">Pupitre :</label>
                 <!-- On réalise un select pour sélectionner le pupitre en fonction de ce qui est créer -->
-                <Select name="pupitre" required>
+                <Select name="pupitre" required class="select">
                     <option value="0" selected>Choisir un Pupitre</option>
                     {% for pupitre in pupitres %}
                         <option value="{{ pupitre.id }}">{{ pupitre.nom }}</option>
@@ -62,7 +62,7 @@
                 </Select>
                 <label class="label" for="role">Rôle :</label>
                 <!-- Pareil que le pupitre mais pour les rôles -->
-                <Select name="role" required>
+                <Select name="role" required class="select"
                     <option value="" selected>Choisir un rôle</option>
                     <option value="ROLE_USER">Musicien</option>
                     <option value="ROLE_ADMIN">Admin</option>
@@ -74,13 +74,10 @@
         </form>
     </div>
 
-        {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}">
-
-                <p class=".error_message">{{ message }}</p>
-            </div>
-        {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="flash-error">
+            {{ message }}
+        </div>
     {% endfor %}
 
 {% endblock %}

@@ -1,4 +1,26 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="info">
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+    </div>
+    <div class="info">
+        {{ form_row(form.email) }}
+        {{ form_row(form.date_naissance) }}
+    </div>
+    <div class="info">
+        {{ form_row(form.adresse) }}
+        {{ form_row(form.CP) }}
+        {{ form_row(form.ville) }}
+    </div>
+    <div class="info">
+        {{ form_row(form.tel_fix) }}
+        {{ form_row(form.tel_port) }}
+    </div>
+    <div class="info">
+        {{ form_row(form.pupitre) }}
+    </div>
+    <div class="info">
+        {{ form_row(form.avancement) }}
+    </div>
+    <button class="submit">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

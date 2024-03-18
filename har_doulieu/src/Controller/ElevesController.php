@@ -42,13 +42,6 @@ class ElevesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_eleves_show', methods: ['GET'])]
-    public function show(Eleves $elefe): Response
-    {
-        return $this->render('eleves/show.html.twig', [
-            'elefe' => $elefe,
-        ]);
-    }
 
     #[Route('/{id}/edit', name: 'app_eleves_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Eleves $elefe, EntityManagerInterface $entityManager): Response
@@ -61,6 +54,7 @@ class ElevesController extends AbstractController
 
             return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
         }
+        dump($elefe->getInstruments());
 
         return $this->render('eleves/edit.html.twig', [
             'elefe' => $elefe,
@@ -70,8 +64,16 @@ class ElevesController extends AbstractController
 
     #[Route('/{id}', name: 'app_eleves_delete', methods: ['POST'])]
     public function delete(Request $request, Eleves $elefe, EntityManagerInterface $entityManager): Response
-    {
+    {   
         if ($this->isCsrfTokenValid('delete'.$elefe->getId(), $request->request->get('_token'))) {
+            # Regarde s'il est dans la table instrument 
+        dump($elefe->getInstruments()!=null);
+            
+            if($elefe->getInstruments()!=null){
+                #Ajout d'un message flash
+                $this->addFlash('error', 'Suppression Interdite, le musicien est lié à un instrument');
+                return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
+            }
             $entityManager->remove($elefe);
             $entityManager->flush();
         }

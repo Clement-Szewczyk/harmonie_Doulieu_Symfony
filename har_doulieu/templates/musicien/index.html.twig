@@ -1,65 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MusicienController!{% endblock %}
+{% block title %}User index{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('styles/musicien.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/tableau.css') }}">
 {% endblock %}
 
 {% block body %}
-{% include "navbar.html.twig" %}
+    {% include "navbar.html.twig" %}
+    <h1>Les Musiciens</h1>
 
-<!-- Affiche les infos des users -->
-
-<h1>Les Musiciens </h1>
-    <!-- Création du tableau permettant de visualiser l'ensemble des musiciens -->
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Pseudo</th>
-                <th>Email</th>
-                <th>Tel_Fixe</th>
-                <th>Tel_Portable</th>
-                <th>Adresse</th>
-                <th>Code_Postal</th>
-                <th>Ville</th>
-                <th>Date de naissance</th>
-                <th>Date Entrée Doulieu</th>
-                <th>Date entrée Fédé</th>
+                <th>Id</th>
+                <th>Roles</th>
                 <th>Pupitre</th>
-                <th>Rôle</th>
-                <th>Modifier</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Adresse</th>
+                <th>CP</th>
+                <th>Tel_fixe</th>
+                <th>Tel_port</th>
+                <th>Date_naissance</th>
+                <th>Date_har</th>
+                <th>Date_fede</th>
+                <th>Ville</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for musicien in users %}
-                <tr>
-                    <td>{{ musicien.nom }}</td>
-                    <td>{{ musicien.prenom }}</td>
-                    <td>{{ musicien.pseudo }}</td>
-                    <td>{{ musicien.email }}</td>
-                    <td>{{ musicien.telFixe }}</td>
-                    <td>{{musicien.TelPort}}</td>
-                    <td>{{ musicien.adresse }}</td>
-                    <td>{{ musicien.CP }}</td>
-                    <td>{{ musicien.ville }}</td>
-                    <td>{{ musicien.dateNaissance|date('d/m/Y') }}</td>
-                    <td>{{ musicien.Datehar|date('d/m/Y') }}</td>
-                    <td>{{ musicien.DateFede|date('d/m/Y') }}</td>
-                    
-                    <td>{{musicien.pupitre.nom}}</td>
-                    <td>
-                        {% if musicien.roles|length > 0 %}
-                            {{ musicien.roles[0] }}
-                        {% endif %}
-                    </td>
-                    <td><a href="{{ path('app_musiciens_musicien', {'id': musicien.id}) }}">Modifier</a></td>
-                </tr>
-            {% endfor %}
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.pupitre ? user.pupitre.nom : '' }}</td>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.adresse }}</td>
+                <td>{{ user.CP }}</td>
+                <td>{{ user.telFixe }}</td>
+                <td>{{ user.telPort }}</td>
+                <td>{{ user.dateNaissance ? user.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ user.dateHar ? user.dateHar|date('Y-m-d') : '' }}</td>
+                <td>{{ user.dateFede ? user.dateFede|date('Y-m-d') : '' }}</td>
+                <td>{{ user.ville }}</td>
+                <td>
+                    <a href="{{ path('app_musicien_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
-    
+
+    <div class="button_add">
+        <a href="{{ path('app_musicien_new') }}">Ajout</a>
+    </div>
+
+    {% for message in app.flashes('error') %}
+        <div class="flash-error">
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endblock %}
