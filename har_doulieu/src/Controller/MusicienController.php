@@ -18,7 +18,8 @@ class MusicienController extends AbstractController
 {
     #[Route('/', name: 'app_musicien_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
-    {
+    {   
+        
         return $this->render('musicien/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
@@ -104,6 +105,8 @@ class MusicienController extends AbstractController
     {
         $user = $manager->getRepository(User::class)->find($id);
         $pupitres = $manager->getRepository(Pupitres::class)->findAll();
+        
+        
 
         if($request->isMethod('POST')){
             # On vérifie si les champs sont remplis
@@ -145,7 +148,9 @@ class MusicienController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             # Regarde s'il est dans la table instrument 
-            if($user->getInstruments() != null){
+            $instrument = $user->getInstruments();
+            
+            if(!empty($instrument) && $instrument[0] != null){
                 
                 #Ajout d'un message flash
                 $this->addFlash('error', 'Suppression Interdite, le musicien est lié à un instrument');

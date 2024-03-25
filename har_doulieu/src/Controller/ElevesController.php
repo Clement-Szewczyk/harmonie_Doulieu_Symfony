@@ -54,7 +54,15 @@ class ElevesController extends AbstractController
 
             return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
         }
-        dump($elefe->getInstruments());
+        $instrument = $elefe->getInstruments();
+        if(!empty($instrument) && $instrument[0] != null){
+            dump("instrument");
+            dump($instrument[0]);
+        }
+        else{
+            dump("pas d'instrument");
+            dump($instrument);
+        }
 
         return $this->render('eleves/edit.html.twig', [
             'elefe' => $elefe,
@@ -67,11 +75,11 @@ class ElevesController extends AbstractController
     {   
         if ($this->isCsrfTokenValid('delete'.$elefe->getId(), $request->request->get('_token'))) {
             # Regarde s'il est dans la table instrument 
-        dump($elefe->getInstruments()!=null);
+            $instrument = $elefe->getInstruments();
             
-            if($elefe->getInstruments()!=null){
+            if(!empty($instrument) && $instrument[0] != null){
                 #Ajout d'un message flash
-                $this->addFlash('error', 'Suppression Interdite, le musicien est lié à un instrument');
+                $this->addFlash('error', 'Suppression Interdite, l\'élèves est lié à un instrument');
                 return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
             }
             $entityManager->remove($elefe);

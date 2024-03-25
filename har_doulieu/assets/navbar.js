@@ -56,9 +56,7 @@ function Instrument(){
 function Musicien(){
   window.location.href = "/musicien"
 }
-function Ajout(){
-  window.location.href = "/ajout"
-}
+
 function Eleves(){
   window.location.href = "/eleves"
 }

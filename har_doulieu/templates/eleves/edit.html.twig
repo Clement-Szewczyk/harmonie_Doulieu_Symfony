@@ -6,7 +6,7 @@
 
     {% include "navbar.html.twig" %}
 
-    <h1>Edition de</h1>
+    <h1>Edition de {{ elefe.prenom ~ ' ' ~ elefe.nom }}</h1>
 
     {{ include('eleves/_form.html.twig', {'button_label': 'Update'}) }}
 
