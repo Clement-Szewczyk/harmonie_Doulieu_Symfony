@@ -150,6 +150,15 @@ class MusicienController extends AbstractController
             # Regarde s'il est dans la table instrument 
             $instrument = $user->getInstruments();
             
+            $message = $user->getMessages();
+            if(!empty($message) && $message[0] != null){
+                //on supprime les messages
+                foreach($message as $m){
+                    $entityManager->remove($m);
+                    $entityManager->flush();
+                }
+            }
+
             if(!empty($instrument) && $instrument[0] != null){
                 
                 #Ajout d'un message flash
