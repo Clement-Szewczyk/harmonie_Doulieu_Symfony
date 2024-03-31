@@ -21,11 +21,11 @@ function Accueil(){
 }
 
 function Historique(){
-  window.location.href = "historique"
+  window.location.href = "/harmonie/historique"
 }
 
 function Direction(){
-  window.location.href = "direction"
+  window.location.href = "/harmonie/direction"
 }
 
 function Commission(){
@@ -38,7 +38,7 @@ function Repetition(){
 
 
 function Ecole(){
-  window.location.href = "ecole"
+  window.location.href = "/harmonie/ecole"
 }
 
 function Espace(){

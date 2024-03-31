@@ -89,8 +89,13 @@ class InstrumentController extends AbstractController
     public function delete(Request $request, Instrument $instrument, EntityManagerInterface $entityManager):Response
     {
         if ($this->isCsrfTokenValid('delete'.$instrument->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($instrument);
-            $entityManager->flush();
+            if($instrument->getLocataireEleves() != null || $instrument->getLocataireMusicien() != null){
+                $this->addFlash('error', 'Suppression Interdite, l\'instrument est lié à un musicien ou à un élève');
+                return $this->redirectToRoute('app_instrument_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                $entityManager->remove($instrument);
+                $entityManager->flush();
+            }
         }
         return $this->redirectToRoute('app_instrument_index', [], Response::HTTP_SEE_OTHER);
     }

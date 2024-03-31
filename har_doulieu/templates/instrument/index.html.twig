@@ -53,5 +53,11 @@
     <div class="button_add">
         <a href="{{ path('app_instrument_new') }}">Ajout</a>
     </div>
+
+    {% for message in app.flashes('error') %}
+    <div class="flash-error">
+        {{ message }}
+    </div>
+{% endfor %}
     
 {% endblock %}

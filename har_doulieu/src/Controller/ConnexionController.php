@@ -18,6 +18,11 @@ class ConnexionController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        //erreur personnalisée
+        if ($error) {
+            $this->addFlash('error', 'Identifiants incorrects');
+        }
+
         return $this->render('connexion/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,

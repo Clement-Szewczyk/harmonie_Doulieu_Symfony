@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Message{% endblock %}
+
+{% block body %}
+    {% include "navbar.html.twig" %}
+    <h1>Ajout d'un nouveau message</h1>
+
+    {{ include('message/_form.html.twig') }}
+
+    <a href="{{ path('app_message_index') }}" class="back">Retour à la liste</a>
+{% endblock %}

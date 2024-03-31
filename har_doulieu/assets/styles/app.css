@@ -202,6 +202,19 @@ form {
   border: #900 1px solid;
 }
 
+.back{
+  margin-top: 10px;
+  color: #900;
+  text-decoration: none;
+}
+
+.back:hover{
+  color: white;
+  background-color: #900;
+  padding: 5px;
+  border-radius: 10px;
+}
+
 /* ******************** Erreur ******************* */
 
 .flash-error{

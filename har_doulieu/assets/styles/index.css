@@ -1,0 +1,52 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container .img{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px;
+}
+
+.container .img img{
+    width: 25%;
+    height: 15%;
+    border: 3px solid #900;
+    box-shadow: 5px 5px 5px #900;
+}
+
+
+.contenu{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.box{
+    border : 3px solid #900; 
+    border-radius: 20px;
+    padding: 10px;;
+    background-color: lightgrey;
+    box-shadow: 5px 5px 5px #900;
+    margin: 10px;
+    width: 50%;
+}
+
+.box h2{
+    text-align: center;
+    color: #900;
+}
+
+.box p{
+    text-align: justify;
+
+
+}
+
+.box .add{
+    text-align: center o !important;
+    font-size: 12px;
+}

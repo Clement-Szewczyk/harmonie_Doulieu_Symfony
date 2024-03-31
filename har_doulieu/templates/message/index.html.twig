@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message index{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/tableau.css') }}">
+{% endblock %}
+
+{% block body %}
+    {{ include('navbar.html.twig') }}
+    <h1>Liste des Messages</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for message in messages %}
+            <tr>
+                <td>{{ message.id }}</td>
+                <td>{{ message.titre }}</td>
+                <td>{{ message.contenu }}</td>
+                <td>{{ message.date ? message.date|date('Y-m-d') : '' }}</td>
+                <td>
+
+                    <a href="{{ path('app_message_edit', {'id': message.id}) }}">edit</a>
+                </td>
+            </tr>
+        
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="button_add">
+        <a href="{{ path('app_message_new') }}">Nouveau message</a>
+    </div>
+{% endblock %}

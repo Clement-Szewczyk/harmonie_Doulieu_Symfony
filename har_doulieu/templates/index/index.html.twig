@@ -2,22 +2,45 @@
 
 {% block title %}Hello IndexController!{% endblock %}
 
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/index.css') }}">
+{% endblock %}
+
 {% block body %}
 {% include "navbar.html.twig" %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<h1>Bienvenue sur le site de l'Harmonie Les Amis Réunis !</h1>
 
+<div class="container">
+    <div class="img">
+        <img src="{{ asset('img/harmonie.jpg') }}" alt="harmonie">
+    </div>
 
+    <div class="contenu">
+        <div class="message box">
+            <h2>Message de l'harmonie</h2>
+            
+            {% if message == "Aucun message n'a été trouvé" %}
+                <p>{{ message }}</p>
+            {% else %}
+                <h3>{{message.titre}}</h3>
+                <p>{{message.contenu}}</p>
+                <p class="add">Publié le {{ message.date|date("m/d/Y") }} par {{ message.auteur.prenom }} {{ message.auteur.nom }}</p>
 
-<div class="example-wrapper">
-    <h1>Hello  ✅</h1>
+                
+            {% endif %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/user/Documents/GitHub/EDN/Licence_2/framework_web/har_doulieu/src/Controller/IndexController.php</code></li>
-        <li>Your template at <code>C:/Users/user/Documents/GitHub/EDN/Licence_2/framework_web/har_doulieu/templates/index/index.html.twig</code></li>
-    </ul>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_message_index') }}">Gérer les messages</a>
+            {% endif %}
+            
+        </div>
+
+        <div class="sortie box">
+            <h2>Les prochaines sorties</h2>
+            
+        </div>
+
+    </div>
 </div>
 {% endblock %}
