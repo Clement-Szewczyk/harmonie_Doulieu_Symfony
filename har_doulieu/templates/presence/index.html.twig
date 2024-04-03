@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Presence index{% endblock %}
+
+
+
+{% block body %}
+
+{% include "navbar.html.twig" %}
+
+<h1>Présences Aux Sorties</h1>
+
+<div class="tab">
+    <form method="GET">
+        <table>
+            <tr>
+                <!-- Mettre 2 th vide pour laisser un espace entre les 2 th -->
+                <th></th>
+                <th></th>
+                <th class="th"><span>Présent</span></th>
+                <th class="th"><span>Incertain</span></th>
+                <th class="th"><span>absent</span></th>
+            </tr>
+            {% for sortie in sorties %}
+                <tr>
+                    
+                    <td>{{ sortie.date.format('d/m/Y') }}</td>
+                    <td>{{ sortie.titre }} ({{sortie.lieu}})</td>
+
+                    {% for presence in presences %}
+                        <p>presence.reponse</p>
+                        
+                    {% endfor %}
+                    
+                </tr>
+                
+            {% endfor %}
+                
+        </table>
+        <input type="submit" value="Mettre à jour" name="Present" class="submit">
+        
+    </form>
+</div>
+{% endblock %}

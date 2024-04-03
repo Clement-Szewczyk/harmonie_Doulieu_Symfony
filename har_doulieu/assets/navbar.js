@@ -62,11 +62,11 @@ function Eleves(){
 }
 
 function Sortie(){
-  window.location.href = "/page/administration/sortie.php"
+  window.location.href = "/sorties"
 }
 
 function sortieuser(){
-  window.location.href = "/page/espace_membre/presence_sortie.php"
+  window.location.href = "/presence"
 }
 
 function connexion(){

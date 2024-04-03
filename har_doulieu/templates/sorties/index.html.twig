@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sorties index{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/tableau.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include "navbar.html.twig" %}
+    <h1>Liste des Sorties</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Lieu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sorty in sorties %}
+            <tr>
+                <td>{{ sorty.id }}</td>
+                <td>{{ sorty.titre }}</td>
+                <td>{{ sorty.date ? sorty.date|date('Y-m-d') : '' }}</td>
+                <td>{{ sorty.lieu }}</td>
+                <td>
+                    <a href="{{ path('app_sorties_show', {'id': sorty.id}) }}">show</a>
+                    <a href="{{ path('app_sorties_edit', {'id': sorty.id}) }}">edit</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="button_add">
+        <a href="{{ path('app_sorties_new') }}">Nouvelle sorties</a>
+    </div>
+    
+{% endblock %}

@@ -13,7 +13,7 @@
 
     {{ include('instrument/_form.html.twig') }}
 
-    <a href="{{ path('app_instrument_index') }}">back to list</a>
+    
 
     <!-- Affiche résultat addflash error-->
 
@@ -22,4 +22,7 @@
             {{ message }}
         </div>
     {% endfor %}
+
+    <a href="{{ path('app_instrument_index') }}" class="back">Retour à la liste</a>
+
 {% endblock %}

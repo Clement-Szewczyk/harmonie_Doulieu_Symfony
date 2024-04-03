@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Sorties{% endblock %}
+
+{% block body %}
+    {% include "navbar.html.twig" %}
+    <h1>Création d'une nouvelle sortie</h1>
+
+    {{ include('sorties/_form.html.twig') }}
+
+    <a href="{{ path('app_sorties_index') }}" class="back">Retour à la liste</a>
+{% endblock %}

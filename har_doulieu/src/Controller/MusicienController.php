@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+#URL accessible que pour l'admin$
 
 #[Route('/musicien')]
 class MusicienController extends AbstractController
@@ -102,7 +103,7 @@ class MusicienController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_musicien_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $manager, $id): Response
-    {
+    {   
         $user = $manager->getRepository(User::class)->find($id);
         $pupitres = $manager->getRepository(Pupitres::class)->findAll();
         
@@ -171,5 +172,12 @@ class MusicienController extends AbstractController
         }
 
         return $this->redirectToRoute('app_musicien_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/visuel', name: 'app_musicien_show', methods: ['GET'])]
+    public function show(UserRepository $userRepository): Response
+    {
+        return new Response('page en construction');
+
     }
 }
