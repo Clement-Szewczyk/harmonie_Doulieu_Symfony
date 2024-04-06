@@ -20,9 +20,18 @@ class SortiesController extends AbstractController
 {
     #[Route('/', name: 'app_sorties_index', methods: ['GET'])]
     public function index(SortiesRepository $sortiesRepository): Response
-    {
+    {   
+        // Récupérer toutes les sorties qui ne sont pas passées et les trier par date
+        $sort = $sortiesRepository->findBy([], ['date' => 'ASC']);
+        $sorties = [];
+        foreach ($sort as $s) {
+            if ($s->getDate() >= new \DateTime()) {
+                $sorties[] = $s;
+            }
+        }
+
         return $this->render('sorties/index.html.twig', [
-            'sorties' => $sortiesRepository->findAll(),
+            'sorties' => $sorties,
         ]);
     }
 
@@ -127,11 +136,22 @@ class SortiesController extends AbstractController
         $csvContent = "Musicien,Instrument,";
 
         // Récupérer tous les titres de sortie
-        $sorties = $sortiesRepository->findAll();
-
+        $sort = $sortiesRepository->findBy([], ['date' => 'ASC']);
+        $sorties = [];
+        foreach ($sort as $s) {
+            if ($s->getDate() >= new \DateTime()) {
+                $sorties[] = $s;
+            }
+        }
+        
         // Ajouter les titres de sortie comme en-têtes de colonnes
         foreach ($sorties as $sortie) {
-            $csvContent .= $sortie->getTitre() . ',';
+            if ($sortie->getDate() >= new \DateTime()) {
+                $csvContent .= $sortie->getTitre() ;
+                $csvContent .= ' ('.$sortie->getDate()->format('d/m/Y').')';
+                $csvContent .= ',';
+            }
+
         }
 
         // Supprimer la virgule finale et ajouter un retour à la ligne
@@ -141,29 +161,32 @@ class SortiesController extends AbstractController
         foreach ($musiciensCSVRows as $musicien => $csvRow) {
             // Parcourir toutes les sorties et récupérer la réponse pour chaque sortie
             foreach ($sorties as $sortie) {
-                $presenceTrouvee = false; // Variable pour suivre si la présence du musicien dans cette sortie est trouvée
-                foreach ($sortie->getPresences() as $presence) {
-                    // Vérifier si la présence appartient au musicien actuel
-                    if ($presence->getUser()->getNom() . ' ' . $presence->getUser()->getPrenom() === $musicien) {
-                        $reponse = $presence->getReponse();
-                        if ($reponse == '1') {
-                            $reponse = 'Oui';
-                        } elseif ($reponse == '0') {
-                            $reponse = 'Non';
-                        } elseif ($reponse == '2') {
-                            $reponse = '?';
-                        } else {
-                            $reponse = ' ';
+                //Si la sortie n'est pas passée
+                if ($sortie->getDate() >= new \DateTime()) {
+                    $presenceTrouvee = false; // Variable pour suivre si la présence du musicien dans cette sortie est trouvée
+                    foreach ($sortie->getPresences() as $presence) {
+                        // Vérifier si la présence appartient au musicien actuel
+                        if ($presence->getUser()->getNom() . ' ' . $presence->getUser()->getPrenom() === $musicien) {
+                            $reponse = $presence->getReponse();
+                            if ($reponse == '1') {
+                                $reponse = 'Oui';
+                            } elseif ($reponse == '0') {
+                                $reponse = 'Non';
+                            } elseif ($reponse == '2') {
+                                $reponse = '?';
+                            } else {
+                                $reponse = ' ';
+                            }
+                            // Ajouter la réponse au CSV row
+                            $csvRow .= "$reponse,";
+                            $presenceTrouvee = true; // Mettre à true pour indiquer que la présence a été trouvée
+                            break; // Sortir de la boucle de présence pour cette sortie
                         }
-                        // Ajouter la réponse au CSV row
-                        $csvRow .= "$reponse,";
-                        $presenceTrouvee = true; // Mettre à true pour indiquer que la présence a été trouvée
-                        break; // Sortir de la boucle de présence pour cette sortie
                     }
-                }
-                // Si la présence n'est pas trouvée pour cette sortie, ajouter une cellule vide
-                if (!$presenceTrouvee) {
-                    $csvRow .= ",";
+                    // Si la présence n'est pas trouvée pour cette sortie, ajouter une cellule vide
+                    if (!$presenceTrouvee) {
+                        $csvRow .= ",";
+                    }
                 }
             }
             // Ajouter la ligne CSV complétée au contenu CSV

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}Harmonie Les Amis Réunis{% endblock %}
 
 
 {% block stylesheets %}
@@ -38,7 +38,20 @@
 
         <div class="sortie box">
             <h2>Les prochaines sorties</h2>
-            
+            {% if sorties == "Aucune sortie n'a été trouvée" %}
+                <p>{{ sorties }}</p>
+            {% else %}
+                <ul>
+                    {% for sortie in sorties %}
+                        <li>{{ sortie.titre }} ({{sortie.lieu}}) - {{ sortie.date|date("d/m/Y") }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_sorties_index') }}">Gérer les sorties</a>
+                
+            {% endif %}
         </div>
 
     </div>

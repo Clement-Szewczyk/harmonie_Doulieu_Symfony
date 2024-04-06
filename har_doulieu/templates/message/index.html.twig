@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Message index{% endblock %}
+{% block title %}Message{% endblock %}
 
 
 {% block stylesheets %}
@@ -28,7 +28,7 @@
                 <td>{{ message.id }}</td>
                 <td>{{ message.titre }}</td>
                 <td>{{ message.contenu }}</td>
-                <td>{{ message.date ? message.date|date('Y-m-d') : '' }}</td>
+                <td>{{ message.date ? message.date|date('d-m-Y') : '' }}</td>
                 <td>
 
                     <a href="{{ path('app_message_edit', {'id': message.id}) }}">edit</a>

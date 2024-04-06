@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sorties index{% endblock %}
+{% block title %}Sorties{% endblock %}
 
 
 {% block stylesheets %}
@@ -27,7 +27,7 @@
             <tr>
                 <td>{{ sorty.id }}</td>
                 <td>{{ sorty.titre }}</td>
-                <td>{{ sorty.date ? sorty.date|date('Y-m-d') : '' }}</td>
+                <td>{{ sorty.date ? sorty.date|date('d-m-Y') : '' }}</td>
                 <td>{{ sorty.lieu }}</td>
                 <td>
                     

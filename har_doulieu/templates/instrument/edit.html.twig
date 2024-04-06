@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Instrument{% endblock %}
+{% block title %}Edition Instrument{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -9,7 +9,7 @@
 
 {% block body %}
     {% include "navbar.html.twig" %}
-    <h1>Edit Instrument</h1>
+    <h1>Editition de {{instrument.NumeroSerie}}</h1>
 
 
     {{ include('instrument/_form.html.twig', {'button_label': 'Mettre à jour'}) }}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/contact.css') }}">
+{% endblock %}
+
+{% block body %}
+
+{% include "navbar.html.twig" %}
+    <h1>Contactez-Nous</h1>
+
+        <!-- Pourquoi nous contacter -->
+    <div class="why">
+        <ul>
+            <li class="option">Jeune ou adulte, vous aimeriez commencer l'apprentissage de la musique ?</li>
+            <li class="option">Musicien, débutant ou confirmé, vous souhaitez partager quelques notes avec nous voire intégrer notre ensemble ?</li>
+            <li class="option">Mairie, association, vous voulez nous soliciter pour une manifestation ?</li>
+            <li class="option">Vous souhaitez simplement en savoir plus sur la vie de l'harmonie ?</li>
+        </ul>
+    </div>
+        
+    <!-- Formulaire de contact -->
+    <div class="contact">
+        <form action="">
+            <div class="info_personne">
+                <input type="text" class="text input_text" id="name" name="name" placeholder="Prénom" required>
+                <input type="text" class="text input_text" id="lastname" name="lastname"placeholder="Nom" required><br><br>
+            </div>
+                
+            <input type="email" class="text input_text" id="email" name="email" placeholder="Email" required><br><br>
+                
+            <textarea class="text input_text" id="message" name="message" rows="5" cols="30" placeholder="Ici votre message ..." required></textarea><br><br>
+                
+            <div class="button">
+                <input class="submit" type="submit" value="Envoyer">
+                <input class="submit"    type="reset" value="Effacer">
+            </div> 
+        </form>
+    </div> 
+{% endblock %}

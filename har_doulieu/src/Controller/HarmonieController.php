@@ -27,4 +27,10 @@ class HarmonieController extends AbstractController
     {
         return $this->render('harmonie/direction.html.twig');
     }
+
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(): Response
+    {
+        return $this->render('harmonie/contact.html.twig');
+    }
 }

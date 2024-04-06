@@ -46,7 +46,7 @@ function Espace(){
 }
 
 function Contact(){
-  window.location.href = "/page/contact.php"
+  window.location.href = "/harmonie/contact"
 }
 
 function Instrument(){
