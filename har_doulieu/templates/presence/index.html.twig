@@ -2,6 +2,9 @@
 
 {% block title %}Presence index{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/precence.css') }}">
+{% endblock %}
 
 
 {% block body %}
@@ -11,26 +14,51 @@
 <h1>Présences Aux Sorties</h1>
 
 <div class="tab">
-    <form method="GET">
+    <form method="POST">
         <table>
             <tr>
                 <!-- Mettre 2 th vide pour laisser un espace entre les 2 th -->
-                <th></th>
-                <th></th>
+                <th class=""></th>
+                <th class=""></th>
                 <th class="th"><span>Présent</span></th>
                 <th class="th"><span>Incertain</span></th>
                 <th class="th"><span>absent</span></th>
             </tr>
             {% for sortie in sorties %}
+
                 <tr>
+                    {% set reponse = 0 %}
+                    {% for presence in presences %}
+                        {% if presence.Event.id == sortie.id %}
+                            {% if presence.user.id == user.id %}
+                                {% set reponse = presence.reponse %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
                     
                     <td>{{ sortie.date.format('d/m/Y') }}</td>
                     <td>{{ sortie.titre }} ({{sortie.lieu}})</td>
 
-                    {% for presence in presences %}
-                        <p>presence.reponse</p>
-                        
-                    {% endfor %}
+                    
+                    {% if reponse == 1 %}
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='present' value='1'checked></td>
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='incertain' value='2' ></td>
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='absent' value='0' ></td>
+                    {% elseif reponse == 2 %}
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='present' value='1' ></td>
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='incertain' value='2' checked></td>
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='absent' value='0' ></td>
+                    {% elseif reponse == 3 %}
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='present' value='1' ></td>
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='incertain' value='2' ></td>
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='absent' value='0' checked></td>
+                    {% else %}
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='present' value='1'></td>
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='incertain' value='2' ></td>
+                        <td><input type='radio' name="{{'presence_' ~ sortie.id}}" id='absent' value='0' ></td>
+                    {% endif %}
+                    
                     
                 </tr>
                 

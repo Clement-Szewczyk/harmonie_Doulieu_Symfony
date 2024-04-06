@@ -30,7 +30,7 @@
                 <td>{{ sorty.date ? sorty.date|date('Y-m-d') : '' }}</td>
                 <td>{{ sorty.lieu }}</td>
                 <td>
-                    <a href="{{ path('app_sorties_show', {'id': sorty.id}) }}">show</a>
+                    
                     <a href="{{ path('app_sorties_edit', {'id': sorty.id}) }}">edit</a>
                 </td>
             </tr>
@@ -38,9 +38,14 @@
         {% endfor %}
         </tbody>
     </table>
+    
 
     <div class="button_add">
         <a href="{{ path('app_sorties_new') }}">Nouvelle sorties</a>
+    </div>
+
+    <div class="button_add">
+        <a href="{{ path('app_sorties_export') }}">Export</a>
     </div>
     
 {% endblock %}

@@ -15,7 +15,6 @@ class IndexController extends AbstractController
     {   
         // Récupérer le dernier message
         $message = $messageRepository->findOneBy([],['id'=>'DESC']);
-        dump($message);
         return $this->render('index/index.html.twig',[
            'message' => $message ?? 'Aucun message n\'a été trouvé'
         ]);

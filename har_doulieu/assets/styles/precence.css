@@ -11,14 +11,14 @@ form{
 }
 
 table{
-    width: 100%;
+    width: 80%;
     margin-top: 20px;
     text-align: center;
 }
 table .th{
     text-align: center;
     border: 1px solid #000;
-    writing-mode: vertical-lr;
+    /*writing-mode: vertical-lr;*/
 }
 
 table .th span{
