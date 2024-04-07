@@ -39,6 +39,7 @@ security:
     access_control:
         - { path: ^/musicien/visuel, roles: ROLE_USER }
         - { path: ^/presence, roles: ROLE_USER }
+        - { path: ^/musicien/show, roles: ROLE_USER }
         - { path: ^/musicien, roles: ROLE_ADMIN }
         - { path: ^/message, roles: ROLE_ADMIN }
         - { path: ^/eleves, roles: ROLE_ADMIN }

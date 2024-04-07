@@ -50,3 +50,21 @@
     margin: 10px;
     text-align: center;
 }
+
+.bloque{
+    background-color: rgb(201, 201, 201);
+    color: white !important;
+    text-align: center;
+}
+
+.bloque:hover{
+    background-color: rgb(201, 201, 201);
+    color: white !important;
+    text-align: center;
+}
+
+.bloque:focus{
+    outline: none;
+    border-color: #900;
+    box-shadow: none !important;
+}

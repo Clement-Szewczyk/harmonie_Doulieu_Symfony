@@ -12,5 +12,25 @@
 
     {{ include('eleves/_delete_form.html.twig') }}
 
+    <form action="" method="POST">
+        <div class="info">
+            <label class="label" for="pseudo">Pseudo :</label>
+            <input class="text" type="text" placeholder="Pseudo" name="pseudo">
+            <label class="label" for="mdp">Mot de passe :</label>
+            <input class="text" type="password" placeholder="Mot de passe" name="mdp">
+        </div>
+        <div class="info">
+            <label class="label" for="fede">Date entrée Fede</label>
+            <input class="text" type="date" name="fede">
+            <label class="label" for="har">Date entrée Harmonie</label>
+            <input class="text" type="date" name="har">
+    
+        </div>
+    
+        <input type="submit" value="Transformer" name="transform" class="submit">
+    </form>
+
     <a href="{{ path('app_eleves_index') }}" class="back">Retour à la liste</a>
 {% endblock %}
+
+

@@ -33,7 +33,7 @@ function Commission(){
 }
 
 function Repetition(){
-  window.location.href = "/page/harmonie/repetition.php"
+  window.location.href = "/harmonie/repetitions"
 }
 
 
@@ -42,7 +42,7 @@ function Ecole(){
 }
 
 function Espace(){
-  window.location.href = "/page/espace_membre/user_info.php"
+  window.location.href = "/musicien/show"
 }
 
 function Contact(){

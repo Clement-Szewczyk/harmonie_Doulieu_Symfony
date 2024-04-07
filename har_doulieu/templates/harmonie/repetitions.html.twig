@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/repetition.css') }}">
+{% endblock %}
+
+{% block title %}Répétitions{% endblock %}
+
+{% block body %}
+
+    {% include "navbar.html.twig" %}
+    <h1>Les répétitions :</h1>
+    
+    <div class="info">
+        <p>Afin de préparer les programmes pour chaque concert et représentation, nous nous retrouvons tous les mercredis de l'année (hors juillet/aout & fêtes de fin d'année) pour une répétition de 20H00 à 21H30.
+        <br><br>
+        Nous répétons dans la maison communale de Le Doulieu : soyez curieux, n'hésitez pas à venir nous rendre visite pendant l'une de nos répétitions... et peut-être <a href="{{ path('app_ecole') }}">intégrer nos rangs...</a>
+        </p>
+    </div>
+
+    <h3 class="prochain">La prochaine répétition aura lieu le {{ formattedDate }}</h3>
+{% endblock %}

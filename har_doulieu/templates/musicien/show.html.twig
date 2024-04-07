@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{user.nom}} {{user.prenom}}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/ajout.css') }}">
+{% endblock %}
+
+
+{% block body %}
+
+{% include "navbar.html.twig" %}
+
+
+    <h1>Modification de vos informations</h1>
+
+
+    <!-- Form pour ajouter un Musicien -->
+    <div class="add_musicien">
+        <form action="" method="POST">
+            <div class="info">
+                <label class="label" for="nom">Nom :</label>
+                <input class="text bloque" type="text" placeholder="Nom" name="nom" value="{{user.nom}}" required  readonly>
+                <label class="label" for="prenom">Prénom :</label>
+                <input class="text bloque" type="text" placeholder="Prénom" name="prenom" value="{{user.prenom}}" required readonly>
+                <label class="label" for="pseudo">Pseudo</label>
+                <input class="text bloque" type="text" placeholder="Pseudo" name="pseudo" value="{{user.pseudo}}" required readonly>
+            </div>
+            <div class="info">
+                <label class="label" for="email">Email :</label>
+                <input class="text" type="text" placeholder="Email" name="email" value="{{user.email}}" required>
+                <label class="label" for="Tel_Fixe">Téléphone fixe :</label>
+                <input class="text" type="text" placeholder="Tel_Fixe" name="fixe" value="{{user.TelFixe}}">
+                <label class="label" for="Tel_Port">Téléphone portable :</label>
+                <input class="text" type="text" placeholder="Tel_Port" name="port" value="{{user.TelPort}}" required>
+            </div>
+            <div class="info">
+                <label class="label" for="adresse">Adresse :</label>
+                <input class="text" type="text" placeholder="Adresse" name="adresse" value="{{user.adresse}}" required >
+                <label class="label" for="CP">Code Postale :</label>
+                <input class="text" type="text" placeholder="Code_Postal" name="CP" value="{{user.CP}}" required >
+                <label class="label" for="ville">Ville :</label>
+                <input class="text" type="text" placeholder="Ville" name="ville" value="{{user.ville}}" required >
+            </div>
+            <div class="info">
+                <label class="label" for="naissance">Date de naissance :</label>
+                <input class="text bloque" type="date" placeholder="Date de naissance" name="naissance" value="{{user.dateNaissance|date('Y-m-d')}}"  required readonly>                
+                <label class="label" for="doulieu">Date d'entrée à Le Doulieu :</label>
+                <input class="text bloque" type="date" placeholder="Date Entrée Doulieu" name="doulieu" value="{{user.datehar|date('Y-m-d')}}" required readonly>
+                <label class="label" for="fede">Date entrée Fédération :</label>
+                <input class="text bloque" type="date" placeholder="Date entrée Fédé" name="fede" value="{{user.datefede|date('Y-m-d')}}" required readonly>
+            </div>
+            
+            <input type="hidden" name="id" value="{{user.id}}">
+
+            
+
+            
+            <div class="button">            
+                <input type="submit" value="Modifier" name="musicien" class="submit">
+            </div>
+        </form>
+    </div>
+
+        {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+{% endblock %}

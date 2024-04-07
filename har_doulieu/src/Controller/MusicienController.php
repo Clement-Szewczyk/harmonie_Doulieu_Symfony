@@ -26,31 +26,8 @@ class MusicienController extends AbstractController
         ]);
     }
 
-    /*#[Route('/new', name: 'app_musicien_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher ): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $mdp = $form->get('password')->getData();
-            $user->setPassword($passwordHasher->hashPassword($user,$mdp));
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_musicien_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('musicien/new.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
-    }*/
-
-
     #[Route('/new', name: 'app_musicien_new')]
-    public function new(Request $request, EntityManagerInterface $manager,UserPasswordHasherInterface $passwordHasher ): Response
+    public function new(Request $request, EntityManagerInterface $manager,UserPasswordHasherInterface $passwordHasher): Response
     {
         $pupitres = $manager->getRepository(Pupitres::class)->findAll();
         
@@ -174,10 +151,54 @@ class MusicienController extends AbstractController
         return $this->redirectToRoute('app_musicien_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/visuel', name: 'app_musicien_show', methods: ['GET'])]
-    public function show(UserRepository $userRepository): Response
-    {
-        return new Response('page en construction');
+    
 
+
+
+
+
+
+
+    #[Route('/show', name: 'app_musicien_show')]
+    public function show(Request $request, User $user, EntityManagerInterface $manager): Response
+    {   
+        $user2 = New User();
+        $user2 = $this->getUser();
+
+        
+        
+
+        if($request->isMethod('POST')){
+            
+            # On vérifie si les champs sont remplis
+            if(empty($request->request->get('nom')) || empty($request->request->get('prenom')) || empty($request->request->get('pseudo')) || empty($request->request->get('email')) || empty($request->request->get('port')) || empty($request->request->get('adresse')) || empty($request->request->get('CP')) || empty($request->request->get('ville')) || empty($request->request->get('naissance')) || empty($request->request->get('doulieu')) || empty($request->request->get('fede')) || empty($request->request->get('pupitre')) || empty($request->request->get('role'))){
+                # Ajoute un message flash
+                $this->addFlash('error', 'Veuillez remplir tous les champs');
+                return $this->redirectToRoute('app_musicien_show');
+            }
+            $user = $manager->getRepository(User::class)->find($request->request->get('id'));
+            dump($user = $manager->getRepository(User::class)->find($request->request->get('id')));
+            
+            $user->setEmail($request->request->get('email'));
+            $user->setTelPort($request->request->get('port'));
+            $user->setTelFixe($request->request->get('fixe'));
+            $user->setAdresse($request->request->get('adresse'));
+            ## Convertir le code postal en int
+            $cp = (int)$request->request->get('CP');
+            $user->setCp($cp);
+            $user->setVille($request->request->get('ville'));
+            
+
+            $manager->persist($user);
+            $manager->flush();
+
+            #return $this->redirectToRoute('app_musicien_show');
+        }else{
+            $this->addFlash('error', 'toto');
+        }
+
+        return $this->render('musicien/show.html.twig', [
+            'user' => $user2
+        ]);
     }
 }
