@@ -28,9 +28,7 @@ function Direction(){
   window.location.href = "/harmonie/direction"
 }
 
-function Commission(){
-  window.location.href = "/page/harmonie/commission.php"
-}
+
 
 function Repetition(){
   window.location.href = "/harmonie/repetitions"
@@ -70,5 +68,5 @@ function sortieuser(){
 }
 
 function connexion(){
-  window.location.href = "login"
+  window.location.href = "/login"
 }

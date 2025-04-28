@@ -38,7 +38,7 @@
             <div class="info">
                 <label class="label" for="adresse">Adresse :</label>
                 <input class="text" type="text" placeholder="Adresse" name="adresse" value="{{user.adresse}}" required >
-                <label class="label" for="CP">Code Postale :</label>
+                <label class="label" for="CP">Code Postal :</label>
                 <input class="text" type="text" placeholder="Code_Postal" name="CP" value="{{user.CP}}" required >
                 <label class="label" for="ville">Ville :</label>
                 <input class="text" type="text" placeholder="Ville" name="ville" value="{{user.ville}}" required >
@@ -58,17 +58,15 @@
 
             
             <div class="button">            
-                <input type="submit" value="Modifier" name="musicien" class="submit">
+                <input type="submit" value="Modifier" name="maj" class="submit">
             </div>
         </form>
     </div>
 
-        {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="flash-error">
+            {{ message }}
+        </div>
     {% endfor %}
 
 {% endblock %}

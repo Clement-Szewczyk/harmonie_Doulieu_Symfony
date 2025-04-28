@@ -31,7 +31,7 @@ class IndexController extends AbstractController
             }
             $i++;
         }
-
+        dump('totot');
 
         return $this->render('index/index.html.twig',[
             'message' => $message ?? 'Aucun message n\'a été trouvé',

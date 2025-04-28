@@ -25,25 +25,24 @@ class ElevesController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_eleves_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $elefe = new Eleves();
-        $form = $this->createForm(ElevesType::class, $elefe);
-        $form->handleRequest($request);
+#[Route('/new', name: 'app_eleves_new', methods: ['GET', 'POST'])]
+public function new(Request $request, EntityManagerInterface $entityManager): Response
+{
+    $elefe = new Eleves();
+    $form = $this->createForm(ElevesType::class, $elefe);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($elefe);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('eleves/new.html.twig', [
-            'elefe' => $elefe,
-            'form' => $form,
-        ]);
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->persist($elefe);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    return $this->render('eleves/new.html.twig', [
+        'elefe' => $elefe,
+        'form' => $form,
+    ]);
+}
 
 
     #[Route('/{id}/edit', name: 'app_eleves_edit', methods: ['GET', 'POST'])]
@@ -53,6 +52,9 @@ class ElevesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //récupère le CP
+            
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
@@ -63,10 +65,13 @@ class ElevesController extends AbstractController
         if($request->isMethod('POST')){
             //SI il existe une requete POST du nom de transform
             if($request->request->has('transform')){
+                
+
                 //On récupère les valeurs du formulaire
                 $pseudo = $request->request->get('pseudo');
                 $mdp = $request->request->get('mdp');
                 $fede = $request->request->get('fede');
+                $har = $request->request->get('har');
 
 
                 // On crée un nouvel utilisateur
@@ -83,7 +88,7 @@ class ElevesController extends AbstractController
                 $user->setCp($elefe->getCp());
                 $user->setVille($elefe->getVille());
                 $user->setDateNaissance($elefe->getDateNaissance());
-                $user->setDateHar(new \DateTime($fede));
+                $user->setDateHar(new \DateTime($har));
                 $user->setDateFede(new \DateTime($fede));
                 $user->setPassword($passwordHasher->hashPassword($user,$mdp));
                 $user->setPupitre($elefe->getPupitre());     
@@ -103,8 +108,10 @@ class ElevesController extends AbstractController
 
                 }
                 //exécute le formulaire de suppression
+                $entityManager->remove($elefe);
+                $entityManager->flush();
                 
-
+                return $this->redirectToRoute('app_musicien_index', [], Response::HTTP_SEE_OTHER);
 
             }
         }

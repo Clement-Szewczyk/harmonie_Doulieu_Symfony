@@ -7,6 +7,7 @@ use App\Entity\Pupitres;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Expr\New_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,9 +58,13 @@ class MusicienController extends AbstractController
             $user->setTelFixe($request->request->get('fixe'));
             $user->setAdresse($request->request->get('adresse'));
             ## Convertir le code postal en int
-            $cp = (int)$request->request->get('CP');
+            $cpint = (int)$request->request->get('CP');
+            if($cpint == 0){
+                $this->addFlash('error', 'Le code postal doit être un nombre');
+                return $this->redirectToRoute('app_musicien_index');
+            } 
+            $user->setCp($cpint);
 
-            $user->setCp($cp);
             $user->setVille($request->request->get('ville'));
             $user->setDateNaissance(new \DateTime($request->request->get('naissance')));
             $user->setDateHar(new \DateTime($request->request->get('doulieu')));
@@ -78,103 +83,33 @@ class MusicienController extends AbstractController
     }
 
 
-    #[Route('/{id}/edit', name: 'app_musicien_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $manager, $id): Response
+   
+
+ 
+
+
+
+
+
+
+
+    #[Route('/show', name: 'app_musicien_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, EntityManagerInterface $manager): Response
     {   
-        $user = $manager->getRepository(User::class)->find($id);
-        $pupitres = $manager->getRepository(Pupitres::class)->findAll();
         
         
-
-        if($request->isMethod('POST')){
-            # On vérifie si les champs sont remplis
-            if(empty($request->request->get('nom')) || empty($request->request->get('prenom')) || empty($request->request->get('pseudo')) || empty($request->request->get('email')) || empty($request->request->get('port')) || empty($request->request->get('adresse')) || empty($request->request->get('CP')) || empty($request->request->get('ville')) || empty($request->request->get('naissance')) || empty($request->request->get('doulieu')) || empty($request->request->get('fede')) || empty($request->request->get('pupitre')) || empty($request->request->get('role'))){
-                # Ajoute un message flash
-                $this->addFlash('error', 'Veuillez remplir tous les champs');
-                return $this->redirectToRoute('app_modif_musicien', ['id' => $id]);
-            }
-            $user->setNom($request->request->get('nom'));
-            $user->setPrenom($request->request->get('prenom'));
-            $user->setPseudo($request->request->get('pseudo'));
-            $user->setEmail($request->request->get('email'));
-            $user->setTelPort($request->request->get('port'));
-            $user->setTelFixe($request->request->get('fixe'));
-            $user->setAdresse($request->request->get('adresse'));
-            ## Convertir le code postal en int
-            $cp = (int)$request->request->get('CP');
-            $user->setCp($cp);
-            $user->setVille($request->request->get('ville'));
-            $user->setDateNaissance(new \DateTime($request->request->get('naissance')));
-            $user->setDateHar(new \DateTime($request->request->get('doulieu')));
-            $user->setDateFede(new \DateTime($request->request->get('fede')));
-
-            $user->setPupitre($manager->getRepository(Pupitres::class)->find($request->request->get('pupitre')));
-            $user->setRoles([$request->request->get('role')]);
-
-            $manager->persist($user);
-            $manager->flush();
-            return $this->redirectToRoute('app_musicien_index');
-        }
-
-        return $this->render('musicien/edit.html.twig', [
-            'user' => $user, 'pupitres' => $pupitres
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_musicien_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            # Regarde s'il est dans la table instrument 
-            $instrument = $user->getInstruments();
-            
-            $message = $user->getMessages();
-            if(!empty($message) && $message[0] != null){
-                //on supprime les messages
-                foreach($message as $m){
-                    $entityManager->remove($m);
-                    $entityManager->flush();
-                }
-            }
-
-            if(!empty($instrument) && $instrument[0] != null){
-                
-                #Ajout d'un message flash
-                $this->addFlash('error', 'Suppression Interdite, le musicien est lié à un instrument');
-                return $this->redirectToRoute('app_musicien_index', [], Response::HTTP_SEE_OTHER);
-
-            }
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_musicien_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    
-
-
-
-
-
-
-
-    #[Route('/show', name: 'app_musicien_show')]
-    public function show(Request $request, User $user, EntityManagerInterface $manager): Response
-    {   
         $user2 = New User();
         $user2 = $this->getUser();
 
-        
-        
-
         if($request->isMethod('POST')){
-            
+
             # On vérifie si les champs sont remplis
-            if(empty($request->request->get('nom')) || empty($request->request->get('prenom')) || empty($request->request->get('pseudo')) || empty($request->request->get('email')) || empty($request->request->get('port')) || empty($request->request->get('adresse')) || empty($request->request->get('CP')) || empty($request->request->get('ville')) || empty($request->request->get('naissance')) || empty($request->request->get('doulieu')) || empty($request->request->get('fede')) || empty($request->request->get('pupitre')) || empty($request->request->get('role'))){
+            if(empty($request->request->get('email')) || empty($request->request->get('fixe')) || empty($request->request->get('port')) || empty($request->request->get('adresse')) || empty($request->request->get('CP')) || empty($request->request->get('ville')) ){
                 # Ajoute un message flash
                 $this->addFlash('error', 'Veuillez remplir tous les champs');
-                return $this->redirectToRoute('app_musicien_show');
+                return $this->redirectToRoute('app_musicien_show', [
+                    'user' => $user2
+                ]);
             }
             $user = $manager->getRepository(User::class)->find($request->request->get('id'));
             dump($user = $manager->getRepository(User::class)->find($request->request->get('id')));
@@ -184,21 +119,111 @@ class MusicienController extends AbstractController
             $user->setTelFixe($request->request->get('fixe'));
             $user->setAdresse($request->request->get('adresse'));
             ## Convertir le code postal en int
-            $cp = (int)$request->request->get('CP');
-            $user->setCp($cp);
+            $cpint = (int)$request->request->get('CP');
+            // regarde s'il y a une erreur lors de la conversion
+            if($cpint == 0){
+                $this->addFlash('error', 'Le code postal doit être un nombre');
+                return $this->render('musicien/show.html.twig', [
+                    'user' => $user2
+                ]);
+            } 
+            
+            $user->setCp($cpint);
             $user->setVille($request->request->get('ville'));
             
 
             $manager->persist($user);
             $manager->flush();
 
-            #return $this->redirectToRoute('app_musicien_show');
-        }else{
-            $this->addFlash('error', 'toto');
+            return $this->render('musicien/show.html.twig', [
+                'user' => $user2
+            ]);
         }
 
         return $this->render('musicien/show.html.twig', [
             'user' => $user2
         ]);
     }
+
+    #[Route('/{id}/edit', name: 'app_musicien_edit', methods: ['GET', 'POST'])]
+public function edit(Request $request, User $user, EntityManagerInterface $manager, $id): Response
+{   
+    $user = $manager->getRepository(User::class)->find($id);
+    $pupitres = $manager->getRepository(Pupitres::class)->findAll();
+    
+    
+
+    if($request->isMethod('POST')){
+        # On vérifie si les champs sont remplis
+        if(empty($request->request->get('nom')) || empty($request->request->get('prenom')) || empty($request->request->get('pseudo')) || empty($request->request->get('email')) || empty($request->request->get('port')) || empty($request->request->get('adresse')) || empty($request->request->get('CP')) || empty($request->request->get('ville')) || empty($request->request->get('naissance')) || empty($request->request->get('doulieu')) || empty($request->request->get('fede')) || empty($request->request->get('pupitre')) || empty($request->request->get('role'))){
+            # Ajoute un message flash
+            $this->addFlash('error', 'Veuillez remplir tous les champs');
+            return $this->redirectToRoute('app_modif_musicien', ['id' => $id]);
+        }
+        $user->setNom($request->request->get('nom'));
+        $user->setPrenom($request->request->get('prenom'));
+        $user->setPseudo($request->request->get('pseudo'));
+        $user->setEmail($request->request->get('email'));
+        $user->setTelPort($request->request->get('port'));
+        $user->setTelFixe($request->request->get('fixe'));
+        $user->setAdresse($request->request->get('adresse'));
+        ## Convertir le code postal en int
+        $cpint = (int)$request->request->get('CP');
+        // regarde s'il y a une erreur lors de la conversion
+        if($cpint == 0){
+            $this->addFlash('error', 'Le code postal doit être un nombre');
+            return $this->redirectToRoute('app_musicien_index');
+        } 
+        $user->setCp($cpint);
+        $user->setVille($request->request->get('ville'));
+        $user->setDateNaissance(new \DateTime($request->request->get('naissance')));
+        $user->setDateHar(new \DateTime($request->request->get('doulieu')));
+        $user->setDateFede(new \DateTime($request->request->get('fede')));
+
+        $user->setPupitre($manager->getRepository(Pupitres::class)->find($request->request->get('pupitre')));
+        $user->setRoles([$request->request->get('role')]);
+
+        $manager->persist($user);
+        $manager->flush();
+        return $this->redirectToRoute('app_musicien_index');
+    }
+
+    return $this->render('musicien/edit.html.twig', [
+        'user' => $user, 'pupitres' => $pupitres
+    ]);
 }
+
+
+#[Route('/{id}', name: 'app_musicien_delete', methods: ['POST'])]
+public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+{
+    if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        # Regarde s'il est dans la table instrument 
+        $instrument = $user->getInstruments();
+        
+        $message = $user->getMessages();
+        if(!empty($message) && $message[0] != null){
+            //on supprime les messages
+            foreach($message as $m){
+                $entityManager->remove($m);
+                $entityManager->flush();
+            }
+        }
+
+        if(!empty($instrument) && $instrument[0] != null){
+            
+            #Ajout d'un message flash
+            $this->addFlash('error', 'Suppression Interdite, le musicien est lié à un instrument');
+            return $this->redirectToRoute('app_musicien_index', [], Response::HTTP_SEE_OTHER);
+
+        }
+        $entityManager->remove($user);
+        $entityManager->flush();
+    }
+
+    return $this->redirectToRoute('app_musicien_index', [], Response::HTTP_SEE_OTHER);
+}
+
+
+}
+

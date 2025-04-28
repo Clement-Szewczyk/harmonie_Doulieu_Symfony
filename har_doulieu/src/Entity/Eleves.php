@@ -31,8 +31,8 @@ class Eleves
     #[ORM\Column(length: 255)]
     private ?string $adresse = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $CP = null;
+    #[ORM\Column]
+    private ?int $CP = null;
 
     #[ORM\Column(length: 255)]
     private ?string $ville = null;

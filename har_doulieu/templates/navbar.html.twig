@@ -19,9 +19,7 @@
             <ul class="dropdown">
                 <li onclick="Historique()">Historique</li>
                 <li onclick="Direction()">La Direction Musicale</li>
-                <li onclick="Commission()">La Commission Administrative</li>
                 <li onclick="Repetition()">Les Répétitions</li>
-                <li onclick="Calendrier()">Le Calendrier des sorties</li>
             </ul>
         </li>
         <li class="nav-item" onclick="Ecole()">Ecole de musique</li>
@@ -72,21 +70,7 @@
                 <p>{{ app.user.userIdentifier }}</p>
                 <a href="{{ path('app_logout') }}">Déconnexion</a>
             
-                <!-- Action vers le controller de connexion
-                <form method="post">
-            
-                    <input class="text" type="text" name="_username" id="username" class="form-control" autocomplete="username" required autofocus>
-                    <input class="text" type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-            
-                    <input type="hidden" name="_csrf_token"
-                           value="{{ csrf_token('authenticate') }}"
-                    >
-            
-                    <div class="button">
-                        <input type="submit" value="Se Connecter" class="submit">
-                    </div>
-                    
-                </form>-->
+               
             {% endif %}
 
         </div>
